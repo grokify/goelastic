@@ -17,6 +17,9 @@ type Tweet struct {
 	Message  string `json:"message,omitempty"`
 }
 
+// main is a simple request that shows the ES documented
+// index document request. After running this code, verify
+// by checking http://localhost:9200/twitter/_search
 func main() {
 	esClient := esj.NewClient(url.URL{})
 

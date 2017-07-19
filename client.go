@@ -5,10 +5,9 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/valyala/fasthttp"
-
 	"github.com/grokify/gotilla/net/httputil"
 	"github.com/grokify/gotilla/strings/stringsutil"
+	"github.com/valyala/fasthttp"
 
 	"github.com/grokify/elastirad-go/models"
 )
