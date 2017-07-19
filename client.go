@@ -13,6 +13,11 @@ import (
 	"github.com/grokify/elastirad-go/models"
 )
 
+const (
+	ElasticsearchAPIDefaultScheme string = "http"
+	ElasticsearchAPIDefaultHost   string = "127.0.0.1:9200"
+)
+
 type Client struct {
 	BaseURL        url.URL
 	FastHTTPClient fasthttp.Client
@@ -28,10 +33,10 @@ func NewClient(baseURL url.URL) Client {
 
 func (c *Client) SetDefaults() {
 	if len(strings.TrimSpace(c.BaseURL.Scheme)) < 1 {
-		c.BaseURL.Scheme = "http"
+		c.BaseURL.Scheme = ElasticsearchAPIDefaultScheme
 	}
 	if len(strings.TrimSpace(c.BaseURL.Host)) < 1 {
-		c.BaseURL.Host = "127.0.0.1:9200"
+		c.BaseURL.Host = ElasticsearchAPIDefaultHost
 	}
 }
 
