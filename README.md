@@ -8,7 +8,7 @@ Simple client to query Elasticsearch API using HTTP API documentation.
 
 See the examples:
 
-* [Index Document](examples/index_document): [ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html)
+* [Index Document](examples/index_document) ([ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html))
 
  [goreport-svg]: https://goreportcard.com/badge/github.com/grokify/elastirad-go
  [goreport-link]: https://goreportcard.com/report/github.com/grokify/elastirad-go
