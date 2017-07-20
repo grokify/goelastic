@@ -14,6 +14,10 @@ type Request struct {
 	Body        interface{}
 }
 
+type UpdateIndexDoc struct {
+	Doc interface{} `json:"doc,omitempty"`
+}
+
 // CreateIndex represents to create index API request body.
 type CreateIndex struct {
 	Settings Settings           `json:"settings,omitempty"`

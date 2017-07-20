@@ -63,11 +63,13 @@ func (c *Client) BuildFastRequest(esReq models.Request) (*fasthttp.Request, erro
 		req.Header.Set(httputil.ContentTypeHeader, httputil.ContentTypeValueJSONUTF8)
 	}
 
-	bytes, err := json.Marshal(esReq.Body)
-	if err != nil {
-		return req, err
+	if esReq.Body != nil {
+		bytes, err := json.Marshal(esReq.Body)
+		if err != nil {
+			return req, err
+		}
+		req.SetBody(bytes)
 	}
-	req.SetBody(bytes)
 
 	return req, nil
 }
