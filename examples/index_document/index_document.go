@@ -54,20 +54,18 @@ func getDoc(esClient elastirad.Client, id string) {
 }
 
 func updateDoc(esClient elastirad.Client, id string, doc interface{}) {
-	updateDoc := models.UpdateIndexDoc{Doc: doc}
-
 	esReq := models.Request{
 		Method: "POST",
 		Path:   []interface{}{"twitter/tweet", id, elastirad.UpdateSlug},
-		Body:   updateDoc}
+		Body:   doc}
 
 	res, req, err := esClient.SendFastRequest(esReq)
 
 	if err != nil {
-		fmt.Printf("C_ERR: %v\n", err)
+		fmt.Printf("U_ERR: %v\n", err)
 	} else {
-		fmt.Printf("C_RES_BODY: %v\n", string(res.Body()))
-		fmt.Printf("C_RES_STATUS: %v\n", res.StatusCode())
+		fmt.Printf("U_RES_BODY: %v\n", string(res.Body()))
+		fmt.Printf("U_RES_STATUS: %v\n", res.StatusCode())
 	}
 	fasthttp.ReleaseRequest(req)
 	fasthttp.ReleaseResponse(res)
@@ -79,7 +77,7 @@ func updateDoc(esClient elastirad.Client, id string, doc interface{}) {
 func main() {
 	esClient := elastirad.NewClient(url.URL{})
 
-	id := "6"
+	id := "1"
 	tweet := Tweet{
 		User:     "kimchy",
 		PostDate: time.Now().Format(time.RFC3339),
@@ -88,6 +86,6 @@ func main() {
 	createDoc(esClient, id, tweet)
 	getDoc(esClient, id)
 	tweet.Message = "trying out Elasticsearch again"
-	updateDoc(esClient, id, tweet)
+	updateDoc(esClient, id, models.UpdateIndexDoc{Doc: tweet})
 	getDoc(esClient, id)
 }
