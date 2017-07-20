@@ -15,13 +15,18 @@ import (
 const (
 	ElasticsearchAPIDefaultScheme string = "http"
 	ElasticsearchAPIDefaultHost   string = "127.0.0.1:9200"
+	CreateSlug                    string = "_create"
+	UpdateSlug                    string = "_update"
 )
 
+// Client is a API client for Elasticsearch.
 type Client struct {
 	BaseURL        url.URL
 	FastHTTPClient fasthttp.Client
 }
 
+// NewClient returns a Client struct given a Elasticsearch
+// server URL.
 func NewClient(baseURL url.URL) Client {
 	c := Client{
 		BaseURL:        baseURL,
@@ -30,6 +35,7 @@ func NewClient(baseURL url.URL) Client {
 	return c
 }
 
+// SetDefaults sets default values where not specified.
 func (c *Client) SetDefaults() {
 	if len(strings.TrimSpace(c.BaseURL.Scheme)) < 1 {
 		c.BaseURL.Scheme = ElasticsearchAPIDefaultScheme
@@ -39,6 +45,7 @@ func (c *Client) SetDefaults() {
 	}
 }
 
+// BuildFastRequest builds a valyala/fasthttp HTTP request struct.
 func (c *Client) BuildFastRequest(esReq models.Request) (*fasthttp.Request, error) {
 	req := fasthttp.AcquireRequest()
 
@@ -61,6 +68,8 @@ func (c *Client) BuildFastRequest(esReq models.Request) (*fasthttp.Request, erro
 	return req, nil
 }
 
+// SendFastRequest executes a valyala/fasthttp HTTP request and returns
+// the response, request and error structs.
 func (c *Client) SendFastRequest(esReq models.Request) (*fasthttp.Response, *fasthttp.Request, error) {
 	res := fasthttp.AcquireResponse()
 
@@ -74,6 +83,8 @@ func (c *Client) SendFastRequest(esReq models.Request) (*fasthttp.Response, *fas
 	return res, req, err
 }
 
+// BuildURL merges the URL info in the request with the Elasticsearch
+// server info configured in the client.
 func (c *Client) BuildURL(esReq models.Request) url.URL {
 	reqURL := url.URL{
 		Scheme: c.BaseURL.Scheme,

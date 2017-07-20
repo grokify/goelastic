@@ -11,6 +11,7 @@ import (
 	"github.com/grokify/elastirad-go/models"
 )
 
+// Tweet is an example Twitter Tweet struct.
 type Tweet struct {
 	User     string `json:"user,omitempty"`
 	PostDate string `json:"post_date,omitempty"`
