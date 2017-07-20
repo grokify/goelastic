@@ -13,10 +13,14 @@ import (
 )
 
 const (
+	// ElasticsearchAPIDefaultScheme is the HTTP scheme for the default server.
 	ElasticsearchAPIDefaultScheme string = "http"
-	ElasticsearchAPIDefaultHost   string = "127.0.0.1:9200"
-	CreateSlug                    string = "_create"
-	UpdateSlug                    string = "_update"
+	// ElasticsearchAPIDefaultScheme is the HTTP host for the default server.
+	ElasticsearchAPIDefaultHost string = "127.0.0.1:9200"
+	// CreateSlug is the URL path part for creates.
+	CreateSlug string = "_create"
+	// UpdateSlug is the URL path part for updates.
+	UpdateSlug string = "_update"
 )
 
 // Client is a API client for Elasticsearch.
