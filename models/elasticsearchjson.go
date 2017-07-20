@@ -14,6 +14,7 @@ type Request struct {
 	Body        interface{}
 }
 
+// UpdateIndexDoc represents the body for a doc partial update.
 type UpdateIndexDoc struct {
 	Doc interface{} `json:"doc,omitempty"`
 }
