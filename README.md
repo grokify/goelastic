@@ -24,7 +24,7 @@ import (
 )
 
 func main() {
-	qry := v5.QueryRequest{
+	qry := v5.QueryBody{
 		Query: v5.Query{
 			Bool: v5.BoolQuery{
 				Should: []v5.Filter{

@@ -1,6 +1,6 @@
 package v5
 
-type QueryRequest struct {
+type QueryBody struct {
 	Query Query `json:"query,omitempty"`
 }
 
