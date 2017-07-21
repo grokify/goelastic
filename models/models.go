@@ -16,7 +16,8 @@ type Request struct {
 
 // UpdateIndexDoc represents the body for a doc partial update.
 type UpdateIndexDoc struct {
-	Doc interface{} `json:"doc,omitempty"`
+	Doc         interface{} `json:"doc,omitempty"`
+	DocAsUpsert bool        `json:"doc_as_upsert,omitempty"`
 }
 
 // CreateIndex represents to create index API request body.

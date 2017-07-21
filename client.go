@@ -21,6 +21,8 @@ const (
 	CreateSlug string = "_create"
 	// UpdateSlug is the URL path part for updates.
 	UpdateSlug string = "_update"
+	// SearchSlug is the URL path part for search.
+	SearchSlug string = "_search"
 )
 
 // Client is a API client for Elasticsearch.

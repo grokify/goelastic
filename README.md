@@ -6,9 +6,41 @@
 
 Simple client to query Elasticsearch API using HTTP API documentation. This is inspired by the [Ruby Elastirad gem](https://github.com/grokify/elastirad-ruby).
 
-See the examples:
+## Usage
+
+### Index API
 
 * [Index Document](examples/index_document) ([ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html))
+
+### Bool Query
+
+Here is a Bool Query example from [Elasticsearch 5.5: Bool Query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
+
+```golang
+	qry := v5.QueryRequest{
+		Query: v5.Query{
+			Bool: v5.BoolQuery{
+				Should: []v5.Filter{
+					{Match: map[string]string{"tag": "wow"}},
+					{Match: map[string]string{"tag": "elasticsearch"}}},
+				MinimumShouldMatch: 1}}}
+```
+
+Which results in the following query:
+
+```json
+{
+  "query": {
+    "bool" : {
+      "should" : [
+        { "term" : { "tag" : "wow" } },
+        { "term" : { "tag" : "elasticsearch" } }
+      ],
+      "minimum_should_match" : 1
+    }
+  }
+}
+```
 
  [goreport-svg]: https://goreportcard.com/badge/github.com/grokify/elastirad-go
  [goreport-link]: https://goreportcard.com/report/github.com/grokify/elastirad-go
