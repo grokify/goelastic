@@ -17,6 +17,13 @@ Simple client to query Elasticsearch API using HTTP API documentation. This is i
 Here is a Bool Query example from [Elasticsearch 5.5: Bool Query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
 
 ```golang
+
+import (
+	"github.com/grokify/elastirad-go/models"
+	"github.com/grokify/elastirad-go/models/v5"
+)
+
+func main() {
 	qry := v5.QueryRequest{
 		Query: v5.Query{
 			Bool: v5.BoolQuery{
@@ -24,6 +31,12 @@ Here is a Bool Query example from [Elasticsearch 5.5: Bool Query](https://www.el
 					{Match: map[string]string{"tag": "wow"}},
 					{Match: map[string]string{"tag": "elasticsearch"}}},
 				MinimumShouldMatch: 1}}}
+
+	req := models.Request{
+		Method: "POST",
+		Path:   []interface{}{"twitter/tweet", elastirad.SearchSlug},
+		Body:   qry}
+}
 ```
 
 Which results in the following query:
