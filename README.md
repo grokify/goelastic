@@ -19,6 +19,7 @@ Here is a Bool Query example from [Elasticsearch 5.5: Bool Query](https://www.el
 ```golang
 
 import (
+	"github.com/grokify/elastirad-go"
 	"github.com/grokify/elastirad-go/models"
 	"github.com/grokify/elastirad-go/models/v5"
 )
