@@ -8,55 +8,14 @@ Simple client to query Elasticsearch API using HTTP API documentation. This is i
 
 ## Usage
 
-Also see the sample code in the [docs folder](docs).
+See the sample code in the [docs folder](docs).
 
-### Index API
+So far the following example code has been created:
 
-* [Index Document](examples/index_document) ([ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html))
-
-### Bool Query
-
-Here is a Bool Query example from [Elasticsearch 5.5: Bool Query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
-
-```golang
-
-import (
-	"github.com/grokify/elastirad-go"
-	"github.com/grokify/elastirad-go/models"
-	"github.com/grokify/elastirad-go/models/v5"
-)
-
-func main() {
-	qry := v5.QueryBody{
-		Query: v5.Query{
-			Bool: v5.BoolQuery{
-				Should: []v5.Filter{
-					{Match: map[string]string{"tag": "wow"}},
-					{Match: map[string]string{"tag": "elasticsearch"}}},
-				MinimumShouldMatch: 1}}}
-
-	req := models.Request{
-		Method: "POST",
-		Path:   []interface{}{"twitter/tweet", elastirad.SearchSlug},
-		Body:   qry}
-}
-```
-
-Which results in the following query:
-
-```json
-{
-  "query": {
-    "bool" : {
-      "should" : [
-        { "term" : { "tag" : "wow" } },
-        { "term" : { "tag" : "elasticsearch" } }
-      ],
-      "minimum_should_match" : 1
-    }
-  }
-}
-```
+1. Create Index: [Go code](reference/indices-create-index) [ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html)
+1. Index Docs: [Go code](reference/docs-index) [ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html)
+1. Bool Query: [Go code](reference/query-dsl-bool-query) [ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
+1. Terms Aggregation: [Go code](reference/search-aggregations-bucket-terms-aggregation) [ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation)
 
  [goreport-svg]: https://goreportcard.com/badge/github.com/grokify/elastirad-go
  [goreport-link]: https://goreportcard.com/report/github.com/grokify/elastirad-go

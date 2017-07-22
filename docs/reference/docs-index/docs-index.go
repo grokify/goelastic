@@ -78,7 +78,8 @@ func main() {
 	tweet := ref.Tweet{
 		User:     ref.User{Username: "kimchy"},
 		PostDate: time.Now().Format(time.RFC3339),
-		Message:  "trying out Elasticsearch"}
+		Message:  "trying out Elasticsearch",
+		HashTags: []string{"elasticsearch", "wow"}}
 
 	createDoc(esClient, id, tweet)
 	getDoc(esClient, id)

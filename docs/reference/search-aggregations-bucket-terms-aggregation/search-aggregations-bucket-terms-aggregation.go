@@ -37,11 +37,9 @@ func main() {
 
 	fmtutil.PrintJSON(body)
 
-	url = "twitter/tweet"
-
 	esReq := models.Request{
 		Method: "POST",
-		Path:   []interface{}{url, elastirad.SearchSlug},
+		Path:   []interface{}{"twitter/tweet", elastirad.SearchSlug},
 		Body:   body}
 
 	res, req, err := esClient.SendFastRequest(esReq)
