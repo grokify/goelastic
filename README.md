@@ -4,7 +4,7 @@
 [![Docs][docs-godoc-svg]][docs-godoc-link]
 [![License][license-svg]][license-link]
 
-Simple client to query Elasticsearch API using HTTP API documentation. This is inspired by the [Ruby Elastirad gem](https://github.com/grokify/elastirad-ruby).
+Simple client to query Elasticsearch API using HTTP API documentation. This is inspired by the [Elastirad Ruby gem](https://github.com/grokify/elastirad-ruby).
 
 ## Usage
 
