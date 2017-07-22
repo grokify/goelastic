@@ -1,0 +1,8 @@
+site_name: Elastirad for Go
+site_url: https://github.com/grokify/elastirad-go
+repo_url: https://github.com/grokify/elastirad-go.git
+docs_dir: docs
+theme: readthedocs
+pages:
+# Introduction:
+- ['README.md', 'Introduction', 'Elastirad']
