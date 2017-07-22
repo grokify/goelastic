@@ -23,15 +23,14 @@ func main() {
 
 	body := v5.CreateIndexBody{
 		Mappings: map[string]v5.Mapping{
-			"tweet": v5.Mapping{
+			"tweet": {
 				All: v5.All{Enabled: true},
 				Properties: map[string]v5.Property{
-					"message": v5.Property{
-						Type: "text"},
-					"user": v5.Property{
+					"message": {Type: "text"},
+					"user": {
 						Type: "nested",
 						Properties: map[string]v5.Property{
-							"username": v5.Property{Type: "keyword"},
+							"username": {Type: "keyword"},
 						}}}}}}
 
 	fmtutil.PrintJSON(body)

@@ -29,10 +29,10 @@ func main() {
 	body := v5.AggsBody{
 		Size: 10000,
 		Aggs: map[string]v5.Agg{
-			"user": v5.Agg{
+			"user": {
 				Nested: &v5.Nested{Path: "user"},
 				Aggs: map[string]v5.Agg{
-					"TweetCountByUsername": v5.Agg{
+					"TweetCountByUsername": {
 						Terms: &v5.Term{Field: "user.username"}}}}}}
 
 	fmtutil.PrintJSON(body)
