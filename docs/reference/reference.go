@@ -26,6 +26,6 @@ type User struct {
 type Location struct {
 	DisplayName string  `json:"display_name,omitempty"`
 	Locode      string  `json:"locode,omitempty"`
-	Lat         float64 `json:"lon,omitempty"`
+	Lat         float64 `json:"lat,omitempty"`
 	Lon         float64 `json:"lon,omitempty"`
 }
