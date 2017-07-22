@@ -8,15 +8,12 @@ import (
 	"github.com/valyala/fasthttp"
 
 	"github.com/grokify/elastirad-go"
+	"github.com/grokify/elastirad-go/docs/reference"
 	"github.com/grokify/elastirad-go/models"
 )
 
-// Tweet is an example Twitter Tweet struct.
-type Tweet struct {
-	User     string `json:"user,omitempty"`
-	PostDate string `json:"post_date,omitempty"`
-	Message  string `json:"message,omitempty"`
-}
+// Example from:
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html
 
 func createDoc(esClient elastirad.Client, id string, doc interface{}) {
 	esReq := models.Request{
@@ -78,8 +75,8 @@ func main() {
 	esClient := elastirad.NewClient(url.URL{})
 
 	id := "1"
-	tweet := Tweet{
-		User:     "kimchy",
+	tweet := ref.Tweet{
+		User:     ref.User{Username: "kimchy"},
 		PostDate: time.Now().Format(time.RFC3339),
 		Message:  "trying out Elasticsearch"}
 

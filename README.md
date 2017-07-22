@@ -8,6 +8,8 @@ Simple client to query Elasticsearch API using HTTP API documentation. This is i
 
 ## Usage
 
+Also see the sample code in the [docs folder](docs).
+
 ### Index API
 
 * [Index Document](examples/index_document) ([ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html))
