@@ -68,10 +68,14 @@ type Term struct {
 	Null  bool   `json:"null,omitempty"`
 }
 
+type AggResponseSimple struct {
+	Aggregations map[string]Aggregation `json:"aggregations,omitempty"`
+}
+
 // AggResponseWIP is working response object used to
 // format an aggregations response using Elastirad's
 // AggResponseRad struct.
-type AggResponseWIP struct {
+type AggResponseNestedWIP struct {
 	Aggregations map[string]map[string]interface{} `json:"aggregations,omitempty"`
 }
 
@@ -97,11 +101,12 @@ type Bucket struct {
 	DocCount    int         `json:"doc_count,omitempty"`
 }
 
-// AggregationResRadArrayFromBodyBytes returns an array of formatted
+// AggregationResRadArrayFromBodyBytesNested returns an array of formatted
 // Aggregations using AggregationResRad structs given a HTTP response byte
 // array.
-func AggregationResRadArrayFromBodyBytes(bytes []byte) ([]AggregationResRad, error) {
-	esRes := AggResponseWIP{}
+// Nested
+func AggregationResRadArrayFromBodyBytesNested(bytes []byte) ([]AggregationResRad, error) {
+	esRes := AggResponseNestedWIP{}
 	esAggs := []AggregationResRad{}
 	err := json.Unmarshal(bytes, &esRes)
 	if err != nil {
@@ -125,6 +130,29 @@ func AggregationResRadArrayFromBodyBytes(bytes []byte) ([]AggregationResRad, err
 				}
 				esAgg.AggregationData = agg
 			}
+		}
+		esAggs = append(esAggs, esAgg)
+	}
+	return esAggs, nil
+}
+
+// AggregationResRadArrayFromBodyBytes is used to parse
+// simple, non-nested aggregations.
+func AggregationResRadArrayFromBodyBytes(bytes []byte) ([]AggregationResRad, error) {
+	esRes := AggResponseSimple{}
+	esAggs := []AggregationResRad{}
+	err := json.Unmarshal(bytes, &esRes)
+	if err != nil {
+		return esAggs, err
+	}
+	for k1, srcAgg := range esRes.Aggregations {
+		esAgg := AggregationResRad{
+			AggregationName: k1,
+			DocCount:        0,
+			AggregationData: srcAgg,
+		}
+		for _, bucket := range srcAgg.Buckets {
+			esAgg.DocCount += bucket.DocCount
 		}
 		esAggs = append(esAggs, esAgg)
 	}
