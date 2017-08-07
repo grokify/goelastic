@@ -43,4 +43,10 @@ type FilteredOr struct {
 type Filter struct {
 	Match map[string]string `json:"match,omitempty"`
 	Term  map[string]string `json:"term,omitempty"`
+	Range map[string]Range  `json:"range,omitempty"`
+}
+
+type Range struct {
+	GTE interface{} `json:"gte,omitempty"`
+	LTE interface{} `json:"lte,omitempty"`
 }

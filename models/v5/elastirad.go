@@ -13,3 +13,11 @@ type Request struct {
 	ContentType string
 	Body        interface{}
 }
+
+type ResponseBody struct {
+	Hits Hits `json:"hits,omitempty"`
+}
+
+type Hits struct {
+	Total int64 `json:"total,omitempty"`
+}
