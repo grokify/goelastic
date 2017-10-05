@@ -47,6 +47,9 @@ type Filter struct {
 }
 
 type Range struct {
-	GTE interface{} `json:"gte,omitempty"`
-	LTE interface{} `json:"lte,omitempty"`
+	GT    interface{} `json:"gt,omitempty"`
+	GTE   interface{} `json:"gte,omitempty"`
+	LT    interface{} `json:"lt,omitempty"`
+	LTE   interface{} `json:"lte,omitempty"`
+	Boost float       `json:"boost,omitempty"`
 }
