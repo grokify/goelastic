@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/grokify/gotilla/net/httputil"
+	"github.com/grokify/gotilla/net/httputilmore"
 	"github.com/grokify/gotilla/strings/stringsutil"
 	"github.com/valyala/fasthttp"
 
@@ -60,9 +60,9 @@ func (c *Client) BuildFastRequest(esReq models.Request) (*fasthttp.Request, erro
 	req.Header.SetRequestURI(esURL.String())
 
 	if len(strings.TrimSpace(esReq.ContentType)) > 0 {
-		req.Header.Set(httputil.ContentTypeHeader, esReq.ContentType)
+		req.Header.Set(httputilmore.ContentTypeHeader, esReq.ContentType)
 	} else {
-		req.Header.Set(httputil.ContentTypeHeader, httputil.ContentTypeValueJSONUTF8)
+		req.Header.Set(httputilmore.ContentTypeHeader, httputilmore.ContentTypeValueJSONUTF8)
 	}
 
 	if esReq.Body != nil {
