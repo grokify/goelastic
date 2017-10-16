@@ -51,5 +51,5 @@ type Range struct {
 	GTE   interface{} `json:"gte,omitempty"`
 	LT    interface{} `json:"lt,omitempty"`
 	LTE   interface{} `json:"lte,omitempty"`
-	Boost float       `json:"boost,omitempty"`
+	Boost float32     `json:"boost,omitempty"`
 }
