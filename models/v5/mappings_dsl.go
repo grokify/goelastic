@@ -57,5 +57,6 @@ type All struct {
 type Property struct {
 	Type       string              `json:"type,omitempty"`
 	Index      string              `json:"index,omitempty"`
+	Format     string              `json:"format,omitempty"`
 	Properties map[string]Property `json:"properties,omitempty"`
 }
