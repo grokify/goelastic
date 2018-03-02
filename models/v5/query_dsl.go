@@ -11,6 +11,7 @@ type Query struct {
 	Bool   *BoolQuery            `json:"bool,omitempty"`
 	Nested *Nested               `json:"nested,omitempty"`
 	Match  map[string]MatchQuery `json:"match,omitempty"`
+	Range  map[string]Range      `json:"range,omitempty"`
 }
 
 // MatchQuery represents a Query API match object.
