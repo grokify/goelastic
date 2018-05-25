@@ -1,0 +1,19 @@
+language: go
+go_import_path: github.com/grokify/elastirad-go
+go:
+  - "1.10.x"
+  - "1.9.x"
+  - "1.8.x"
+  - "1.7.x"
+  - "1.6.x"
+  - "1.5.x"
+  - tip
+matrix:
+  allow_failures:
+    - go: "1.5.x"
+    - go: tip
+sudo: true
+install:
+  - go get -t -v ./...
+script:
+  - go test -v ./...

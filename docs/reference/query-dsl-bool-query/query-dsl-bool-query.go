@@ -21,7 +21,7 @@ func main() {
 
 	body := v5.QueryBody{
 		Query: v5.Query{
-			Bool: v5.BoolQuery{
+			Bool: &v5.BoolQuery{
 				Should: []v5.Filter{
 					{Match: map[string]string{"hash_tags": "wow"}},
 					{Match: map[string]string{"hash_tags": "elasticsearch"}}},
