@@ -7,11 +7,11 @@ go:
   - "1.10.x"
   - "1.9.x"
   - "1.8.x"
- - tip
+  - master
 matrix:
   allow_failures:
     - go: "1.8.x"
-    - go: tip
+    - go: master
 sudo: true
 install:
   - go get -t -v ./...
