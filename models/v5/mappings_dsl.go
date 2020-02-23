@@ -37,8 +37,14 @@ PUT my_index
 */
 
 type CreateIndexBody struct {
+	Index    *Index             `json:"index,omitempty"`
 	Settings *Settings          `json:"settings,omitempty"`
 	Mappings map[string]Mapping `json:"mappings,omitempty"`
+}
+
+type Index struct {
+	NumberOfShards   uint32 `json:"number_of_shards,omitempty"`
+	NumberOfReplicas uint32 `json:"number_of_replicas,omitempty"`
 }
 
 type Settings struct {
