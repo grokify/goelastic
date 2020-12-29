@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/grokify/gotilla/fmt/fmtutil"
+	"github.com/grokify/simplego/fmt/fmtutil"
 	"github.com/valyala/fasthttp"
 
 	"github.com/grokify/elastirad-go"
 	"github.com/grokify/elastirad-go/models"
-	"github.com/grokify/elastirad-go/models/v5"
+	v5 "github.com/grokify/elastirad-go/models/v5"
 )
 
 // Example from:
