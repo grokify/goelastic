@@ -18,11 +18,14 @@ So far the following example code has been created:
 1. Bool Query: [Go code](docs/reference/query-dsl-bool-query), [ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
 1. Terms Aggregation: [Go code](docs/reference/search-aggregations-bucket-terms-aggregation), [ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation)
 
- [build-status-svg]: https://api.travis-ci.org/grokify/elastirad-go.svg?branch=master
- [build-status-link]: https://travis-ci.org/grokify/elastirad-go
+ [build-status-svg]: https://github.com/grokify/elastirad-go/workflows/build/badge.svg
+ [build-status-link]: https://github.com/grokify/elastirad-go/actions
  [goreport-svg]: https://goreportcard.com/badge/github.com/grokify/elastirad-go
  [goreport-link]: https://goreportcard.com/report/github.com/grokify/elastirad-go
- [docs-godoc-svg]: https://img.shields.io/badge/docs-godoc-blue.svg
- [docs-godoc-link]: https://godoc.org/github.com/grokify/elastirad-go
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/grokify/elastirad-go
+ [docs-godoc-link]: https://pkg.go.dev/github.com/grokify/elastirad-go
  [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
  [license-link]: https://github.com/grokify/elastirad-go/blob/master/LICENSE.md
+
+
+
