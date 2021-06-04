@@ -25,7 +25,4 @@ So far the following example code has been created:
  [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/grokify/elastirad-go
  [docs-godoc-url]: https://pkg.go.dev/github.com/grokify/elastirad-go
  [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
- [license-url]: https://github.com/grokify/elastirad-go/blob/master/LICENSE.md
-
-
-
+ [license-url]: https://github.com/grokify/elastirad-go/blob/master/LICENSE
