@@ -3,6 +3,6 @@ module github.com/grokify/elastirad-go
 go 1.16
 
 require (
-	github.com/grokify/mogo v0.33.8
-	github.com/valyala/fasthttp v1.32.0
+	github.com/grokify/mogo v0.36.2
+	github.com/valyala/fasthttp v1.33.0
 )
