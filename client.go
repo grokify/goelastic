@@ -62,7 +62,7 @@ func (c *Client) BuildFastRequest(esReq models.Request) (*fasthttp.Request, erro
 	if len(strings.TrimSpace(esReq.ContentType)) > 0 {
 		req.Header.Set(httputilmore.HeaderContentType, esReq.ContentType)
 	} else {
-		req.Header.Set(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJsonUtf8)
+		req.Header.Set(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
 	}
 
 	if esReq.Body != nil {
