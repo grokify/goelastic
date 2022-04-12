@@ -18,7 +18,7 @@ So far the following example code has been created:
 1. Bool Query: [Go code](docs/reference/query-dsl-bool-query), [ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
 1. Terms Aggregation: [Go code](docs/reference/search-aggregations-bucket-terms-aggregation), [ES docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation)
 
- [build-status-svg]: https://github.com/grokify/elastirad-go/workflows/go%20build/badge.svg
+ [build-status-svg]: https://github.com/grokify/elastirad-go/workflows/test/badge.svg
  [build-status-url]: https://github.com/grokify/elastirad-go/actions
  [goreport-svg]: https://goreportcard.com/badge/github.com/grokify/elastirad-go
  [goreport-url]: https://goreportcard.com/report/github.com/grokify/elastirad-go
