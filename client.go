@@ -1,7 +1,9 @@
 package elastirad
 
 import (
+	"bytes"
 	"encoding/json"
+	"net/http"
 	"net/url"
 	"strings"
 
@@ -28,7 +30,8 @@ const (
 // Client is a API client for Elasticsearch.
 type Client struct {
 	BaseURL        url.URL
-	FastHTTPClient fasthttp.Client
+	Client         *http.Client
+	FastHTTPClient *fasthttp.Client
 }
 
 // NewClient returns a Client struct given a Elasticsearch
@@ -36,7 +39,7 @@ type Client struct {
 func NewClient(baseURL url.URL) Client {
 	c := Client{
 		BaseURL:        baseURL,
-		FastHTTPClient: fasthttp.Client{}}
+		FastHTTPClient: &fasthttp.Client{}}
 	c.SetDefaults()
 	return c
 }
@@ -49,6 +52,32 @@ func (c *Client) SetDefaults() {
 	if len(strings.TrimSpace(c.BaseURL.Host)) < 1 {
 		c.BaseURL.Host = ElasticsearchAPIDefaultHost
 	}
+}
+
+func (c *Client) BuildRequest(esReq models.Request) (*http.Request, error) {
+	esURL := c.BuildURL(esReq)
+	var body *bytes.Reader
+	if esReq.Body != nil {
+		data, err := json.Marshal(esReq.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = bytes.NewReader(data)
+	}
+	return http.NewRequest(esReq.Method, esURL.String(), body)
+}
+
+func (c *Client) SendRequest(esReq models.Request) (*http.Response, error) {
+	req, err := c.BuildRequest(esReq)
+	if err != nil {
+		return nil, err
+	}
+
+	client := c.Client
+	if client == nil {
+		client = &http.Client{}
+	}
+	return client.Do(req)
 }
 
 // BuildFastRequest builds a valyala/fasthttp HTTP request struct.
