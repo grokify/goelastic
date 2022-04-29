@@ -73,6 +73,12 @@ func (c *Client) SendRequest(esReq models.Request) (*http.Response, error) {
 		return nil, err
 	}
 
+	if len(strings.TrimSpace(esReq.ContentType)) > 0 {
+		req.Header.Add(httputilmore.HeaderContentType, esReq.ContentType)
+	} else {
+		req.Header.Add(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
+	}
+
 	client := c.Client
 	if client == nil {
 		client = &http.Client{}
