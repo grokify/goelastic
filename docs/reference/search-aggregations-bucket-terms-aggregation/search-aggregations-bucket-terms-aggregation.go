@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"net/url"
 
 	"github.com/grokify/mogo/fmt/fmtutil"
@@ -35,10 +36,10 @@ func main() {
 					"TweetCountByUsername": {
 						Terms: &v5.Term{Field: "user.username"}}}}}}
 
-	fmtutil.PrintJSON(body)
+	fmtutil.MustPrintJSON(body)
 
 	esReq := models.Request{
-		Method: "POST",
+		Method: http.MethodPost,
 		Path:   []interface{}{"twitter/tweet", elastirad.SearchSlug},
 		Body:   body}
 

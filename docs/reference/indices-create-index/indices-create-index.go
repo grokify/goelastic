@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"net/url"
 
 	"github.com/grokify/mogo/fmt/fmtutil"
@@ -33,10 +34,10 @@ func main() {
 							"username": {Type: "keyword"},
 						}}}}}}
 
-	fmtutil.PrintJSON(body)
+	fmtutil.MustPrintJSON(body)
 
 	esReq := models.Request{
-		Method: "PUT",
+		Method: http.MethodPut,
 		Path:   []interface{}{"twitter"},
 		Body:   body}
 

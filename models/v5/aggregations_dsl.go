@@ -119,12 +119,12 @@ func AggregationResRadArrayFromBodyBytesNested(bytes []byte) ([]AggregationResRa
 				esAgg.DocCount = int(v2.(float64))
 			} else {
 				esAgg.AggregationName = k2
-				aggregationJsonBytes, err := json.Marshal(v2)
+				aggregationJSONBytes, err := json.Marshal(v2)
 				if err != nil {
 					return esAggs, err
 				}
 				agg := Aggregation{}
-				err = json.Unmarshal(aggregationJsonBytes, &agg)
+				err = json.Unmarshal(aggregationJSONBytes, &agg)
 				if err != nil {
 					return esAggs, err
 				}

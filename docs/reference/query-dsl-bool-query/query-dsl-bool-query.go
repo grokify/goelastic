@@ -32,7 +32,7 @@ func main() {
 		Path:   []interface{}{"twitter/tweet", elastirad.SearchSlug},
 		Body:   body}
 
-	fmtutil.PrintJSON(body)
+	fmtutil.MustPrintJSON(body)
 
 	res, req, err := esClient.SendFastRequest(esReq)
 

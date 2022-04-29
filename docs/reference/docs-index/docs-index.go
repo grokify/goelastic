@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"net/url"
 	"time"
 
@@ -17,7 +18,7 @@ import (
 
 func createDoc(esClient elastirad.Client, id string, doc interface{}) {
 	esReq := models.Request{
-		Method: "POST",
+		Method: http.MethodPost,
 		Path:   []interface{}{"twitter/tweet", id, elastirad.CreateSlug},
 		Body:   doc}
 
@@ -35,7 +36,7 @@ func createDoc(esClient elastirad.Client, id string, doc interface{}) {
 
 func getDoc(esClient elastirad.Client, id string) {
 	esReq := models.Request{
-		Method: "GET",
+		Method: http.MethodGet,
 		Path:   []interface{}{"twitter/tweet", id}}
 
 	res, req, err := esClient.SendFastRequest(esReq)
@@ -52,7 +53,7 @@ func getDoc(esClient elastirad.Client, id string) {
 
 func updateDoc(esClient elastirad.Client, id string, doc interface{}) {
 	esReq := models.Request{
-		Method: "POST",
+		Method: http.MethodPost,
 		Path:   []interface{}{"twitter/tweet", id, elastirad.UpdateSlug},
 		Body:   doc}
 
@@ -75,8 +76,8 @@ func main() {
 	esClient := elastirad.NewClient(url.URL{})
 
 	id := "1"
-	tweet := ref.Tweet{
-		User:     ref.User{Username: "kimchy"},
+	tweet := reference.Tweet{
+		User:     reference.User{Username: "kimchy"},
 		PostDate: time.Now().Format(time.RFC3339),
 		Message:  "trying out Elasticsearch",
 		HashTags: []string{"elasticsearch", "wow"}}

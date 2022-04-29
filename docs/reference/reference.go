@@ -1,4 +1,4 @@
-package ref
+package reference
 
 const (
 	Index        = "twitter"

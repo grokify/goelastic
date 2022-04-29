@@ -37,7 +37,7 @@ type Filtered struct {
 // FilteredOr represents a Query API filtered or object.
 type FilteredOr struct {
 	Filters []Filter `json:"filters,omitempty"`
-	Cache   bool     `json:"_cache,qromitempty"`
+	Cache   bool     `json:"_cache,omitempty"`
 }
 
 // Filter represents a Query API filter object.
