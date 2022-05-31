@@ -65,4 +65,5 @@ type Property struct {
 	Index      string              `json:"index,omitempty"`
 	Format     string              `json:"format,omitempty"`
 	Properties map[string]Property `json:"properties,omitempty"`
+	Fields     map[string]Property `json:"fields,omitempty"` // key can be "raw"
 }
