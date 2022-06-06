@@ -23,7 +23,7 @@ func main() {
 	body := es5.QueryBody{
 		Query: es5.Query{
 			Bool: &es5.BoolQuery{
-				Should: []v5.Filter{
+				Should: []es5.Filter{
 					{Match: map[string]string{"hash_tags": "wow"}},
 					{Match: map[string]string{"hash_tags": "elasticsearch"}}},
 				MinimumShouldMatch: 1}}}
