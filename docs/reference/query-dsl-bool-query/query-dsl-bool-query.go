@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"net/url"
 
 	"github.com/grokify/mogo/fmt/fmtutil"
@@ -9,7 +10,7 @@ import (
 
 	"github.com/grokify/elastirad-go"
 	"github.com/grokify/elastirad-go/models"
-	v5 "github.com/grokify/elastirad-go/models/v5"
+	"github.com/grokify/elastirad-go/models/es5"
 )
 
 // Example from:
@@ -19,16 +20,16 @@ import (
 func main() {
 	esClient := elastirad.NewClient(url.URL{})
 
-	body := v5.QueryBody{
-		Query: v5.Query{
-			Bool: &v5.BoolQuery{
+	body := es5.QueryBody{
+		Query: es5.Query{
+			Bool: &es5.BoolQuery{
 				Should: []v5.Filter{
 					{Match: map[string]string{"hash_tags": "wow"}},
 					{Match: map[string]string{"hash_tags": "elasticsearch"}}},
 				MinimumShouldMatch: 1}}}
 
 	esReq := models.Request{
-		Method: "POST",
+		Method: http.MethodPost,
 		Path:   []interface{}{"twitter/tweet", elastirad.SearchSlug},
 		Body:   body}
 

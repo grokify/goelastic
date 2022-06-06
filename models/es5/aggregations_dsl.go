@@ -1,4 +1,4 @@
-package v5
+package es5
 
 import (
 	"encoding/json"

@@ -10,7 +10,7 @@ import (
 
 	"github.com/grokify/elastirad-go"
 	"github.com/grokify/elastirad-go/models"
-	v5 "github.com/grokify/elastirad-go/models/v5"
+	"github.com/grokify/elastirad-go/models/es5"
 )
 
 // Example from:
@@ -27,14 +27,14 @@ import (
 func main() {
 	esClient := elastirad.NewClient(url.URL{})
 
-	body := v5.AggsBody{
+	body := es5.AggsBody{
 		Size: 10000,
-		Aggs: map[string]v5.Agg{
+		Aggs: map[string]es5.Agg{
 			"user": {
-				Nested: &v5.Nested{Path: "user"},
-				Aggs: map[string]v5.Agg{
+				Nested: &es5.Nested{Path: "user"},
+				Aggs: map[string]es5.Agg{
 					"TweetCountByUsername": {
-						Terms: &v5.Term{Field: "user.username"}}}}}}
+						Terms: &es5.Term{Field: "user.username"}}}}}}
 
 	fmtutil.MustPrintJSON(body)
 

@@ -1,4 +1,4 @@
-package v5
+package es5
 
 // QueryBody represents a HTTP request body for the Elasticsearch
 // query API.

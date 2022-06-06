@@ -1,4 +1,4 @@
-package v5
+package es5
 
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/_executing_aggregations.html
 

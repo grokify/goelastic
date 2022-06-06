@@ -10,7 +10,7 @@ import (
 
 	"github.com/grokify/elastirad-go"
 	"github.com/grokify/elastirad-go/models"
-	v5 "github.com/grokify/elastirad-go/models/v5"
+	"github.com/grokify/elastirad-go/models/es5"
 )
 
 // Example from:
@@ -22,15 +22,15 @@ import (
 func main() {
 	esClient := elastirad.NewClient(url.URL{})
 
-	body := v5.CreateIndexBody{
-		Mappings: map[string]v5.Mapping{
+	body := es5.CreateIndexBody{
+		Mappings: map[string]es5.Mapping{
 			"tweet": {
-				All: v5.All{Enabled: true},
-				Properties: map[string]v5.Property{
+				All: es5.All{Enabled: true},
+				Properties: map[string]es5.Property{
 					"message": {Type: "text"},
 					"user": {
 						Type: "nested",
-						Properties: map[string]v5.Property{
+						Properties: map[string]es5.Property{
 							"username": {Type: "keyword"},
 						}}}}}}
 
