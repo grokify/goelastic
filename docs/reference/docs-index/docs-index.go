@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"net/url"
+	"strings"
 	"time"
 
-	"github.com/valyala/fasthttp"
+	"github.com/grokify/gohttp/httpsimple"
+	"github.com/grokify/mogo/encoding/jsonutil"
+	"github.com/grokify/mogo/log/logutil"
 
 	"github.com/grokify/elastirad-go"
 	"github.com/grokify/elastirad-go/docs/reference"
@@ -16,64 +18,13 @@ import (
 // Example from:
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html
 
-func createDoc(esClient elastirad.Client, id string, doc interface{}) {
-	esReq := models.Request{
-		Method: http.MethodPost,
-		Path:   []interface{}{"twitter/tweet", id, elastirad.CreateSlug},
-		Body:   doc}
-
-	res, req, err := esClient.SendFastRequest(esReq)
-
-	if err != nil {
-		fmt.Printf("C_ERR: %v\n", err)
-	} else {
-		fmt.Printf("C_RES_BODY: %v\n", string(res.Body()))
-		fmt.Printf("C_RES_STATUS: %v\n", res.StatusCode())
-	}
-	fasthttp.ReleaseRequest(req)
-	fasthttp.ReleaseResponse(res)
-}
-
-func getDoc(esClient elastirad.Client, id string) {
-	esReq := models.Request{
-		Method: http.MethodGet,
-		Path:   []interface{}{"twitter/tweet", id}}
-
-	res, req, err := esClient.SendFastRequest(esReq)
-
-	if err != nil {
-		fmt.Printf("R_ERR: %v\n", err)
-	} else {
-		fmt.Printf("R_RES_BODY: %v\n", string(res.Body()))
-		fmt.Printf("R_RES_STATUS: %v\n", res.StatusCode())
-	}
-	fasthttp.ReleaseRequest(req)
-	fasthttp.ReleaseResponse(res)
-}
-
-func updateDoc(esClient elastirad.Client, id string, doc interface{}) {
-	esReq := models.Request{
-		Method: http.MethodPost,
-		Path:   []interface{}{"twitter/tweet", id, elastirad.UpdateSlug},
-		Body:   doc}
-
-	res, req, err := esClient.SendFastRequest(esReq)
-
-	if err != nil {
-		fmt.Printf("U_ERR: %v\n", err)
-	} else {
-		fmt.Printf("U_RES_BODY: %v\n", string(res.Body()))
-		fmt.Printf("U_RES_STATUS: %v\n", res.StatusCode())
-	}
-	fasthttp.ReleaseRequest(req)
-	fasthttp.ReleaseResponse(res)
-}
-
 // main is a simple request that shows the ES documented
 // index document request. After running this code, verify
 // by checking http://localhost:9200/twitter/_search
 func main() {
-	esClient := elastirad.NewClient(url.URL{})
+	//esClient := elastirad.NewClient(url.URL{})
+	esClient, err := elastirad.NewSimpleClient("", "", "", true)
+	logutil.FatalErr(err)
 
 	id := "1"
 	tweet := reference.Tweet{
@@ -82,9 +33,46 @@ func main() {
 		Message:  "trying out Elasticsearch",
 		HashTags: []string{"elasticsearch", "wow"}}
 
-	createDoc(esClient, id, tweet)
-	getDoc(esClient, id)
+	// Create Doc
+	resp, err := esClient.Do(httpsimple.SimpleRequest{
+		Method: http.MethodPost,
+		URL:    strings.Join([]string{"twitter/tweet", id, elastirad.CreateSlug}, "/"),
+		IsJSON: true,
+		Body:   tweet})
+	procResponse(resp, err)
+
+	// Get/Check Doc
+	resp, err = esClient.Do(httpsimple.SimpleRequest{
+		Method: http.MethodGet,
+		URL:    strings.Join([]string{"twitter/tweet", id}, "/")})
+	procResponse(resp, err)
+
+	// update Doc
 	tweet.Message = "trying out Elasticsearch again"
-	updateDoc(esClient, id, models.UpdateIndexDoc{Doc: tweet})
-	getDoc(esClient, id)
+
+	resp, err = esClient.Do(httpsimple.SimpleRequest{
+		Method: http.MethodPost,
+		URL:    strings.Join([]string{"twitter/tweet", id, elastirad.UpdateSlug}, "/"),
+		IsJSON: true,
+		Body:   models.UpdateIndexDoc{Doc: tweet}})
+	procResponse(resp, err)
+
+	// Get/Check Doc
+	resp, err = esClient.Do(httpsimple.SimpleRequest{
+		Method: http.MethodGet,
+		URL:    strings.Join([]string{"twitter/tweet", id}, "/")})
+	procResponse(resp, err)
+
+	fmt.Println("DONE")
+}
+
+func procResponse(resp *http.Response, err error) {
+	logutil.FatalErr(err)
+	if resp == nil {
+		return
+	}
+	body, err := jsonutil.PrettyPrintReader(resp.Body, "", "  ")
+	logutil.FatalErr(err)
+	fmt.Printf("C_RES_BODY: %v\n", string(body))
+	fmt.Printf("C_RES_STATUS: %v\n", resp.StatusCode)
 }
