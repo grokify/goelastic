@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"net/url"
+	"strings"
 
+	"github.com/grokify/gohttp/httpsimple"
 	"github.com/grokify/mogo/fmt/fmtutil"
-	"github.com/valyala/fasthttp"
+	"github.com/grokify/mogo/log/logutil"
 
 	"github.com/grokify/elastirad-go"
-	"github.com/grokify/elastirad-go/models"
+	"github.com/grokify/elastirad-go/docs/reference"
 	"github.com/grokify/elastirad-go/models/es5"
 )
 
@@ -25,7 +26,8 @@ import (
 
 // main shows nested aggregation in action
 func main() {
-	esClient := elastirad.NewClient(url.URL{})
+	esClient, err := elastirad.NewSimpleClient("", "", "", true)
+	logutil.FatalErr(err)
 
 	body := es5.AggsBody{
 		Size: 10000,
@@ -38,21 +40,12 @@ func main() {
 
 	fmtutil.MustPrintJSON(body)
 
-	esReq := models.Request{
+	resp, err := esClient.Do(httpsimple.SimpleRequest{
 		Method: http.MethodPost,
-		Path:   []interface{}{"twitter/tweet", elastirad.SearchSlug},
-		Body:   body}
-
-	res, req, err := esClient.SendFastRequest(esReq)
-
-	if err != nil {
-		fmt.Printf("U_ERR: %v\n", err)
-	} else {
-		fmt.Printf("U_RES_BODY: %v\n", string(res.Body()))
-		fmt.Printf("U_RES_STATUS: %v\n", res.StatusCode())
-	}
-	fasthttp.ReleaseRequest(req)
-	fasthttp.ReleaseResponse(res)
+		URL:    strings.Join([]string{"twitter/tweet", elastirad.SearchSlug}, "/"),
+		IsJSON: true,
+		Body:   body})
+	reference.ProcResponse(resp, err)
 
 	fmt.Println("DONE")
 }
