@@ -1,11 +1,11 @@
 package reference
 
-import(
-"fmt"
-"net/http"
+import (
+	"fmt"
+	"net/http"
 
-"github.com/grokify/mogo/encoding/jsonutil"
-"github.com/grokify/mogo/log/logutil"
+	"github.com/grokify/mogo/encoding/jsonutil"
+	"github.com/grokify/mogo/log/logutil"
 )
 
 const (
