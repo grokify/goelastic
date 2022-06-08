@@ -29,12 +29,9 @@ func NewSimpleClient(serverURL, username, password string, allowInsecure bool) (
 	}
 	if len(username) > 0 || len(password) > 0 {
 		hclient, err := goauth.NewClientBasicAuth(username, password, allowInsecure)
-		if err != nil {
-			return httpsimple.SimpleClient{}, err
-		}
 		return httpsimple.SimpleClient{
 			BaseURL:    serverURL,
-			HTTPClient: hclient}, nil
+			HTTPClient: hclient}, err
 	}
 	return httpsimple.SimpleClient{
 		BaseURL:    serverURL,
