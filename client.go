@@ -3,11 +3,14 @@ package elastirad
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"net/url"
 	"strings"
 
+	"github.com/grokify/gohttp/httpsimple"
 	"github.com/grokify/mogo/net/httputilmore"
+	"github.com/grokify/mogo/net/urlutil"
 	"github.com/grokify/mogo/type/stringsutil"
 	"github.com/valyala/fasthttp"
 
@@ -84,6 +87,22 @@ func (c *Client) SendRequest(esReq models.Request) (*http.Response, error) {
 		client = &http.Client{}
 	}
 	return client.Do(req)
+}
+
+var ErrEmptyRequest = errors.New("request cannot be empty")
+
+func (c *Client) SendSimpleRequest(sreq *httpsimple.SimpleRequest) (*http.Response, error) {
+	if sreq == nil {
+		return nil, ErrEmptyRequest
+	}
+	if !urlutil.URIHasScheme(sreq.URL) {
+		u := url.URL{
+			Scheme: c.BaseURL.Scheme,
+			Host:   c.BaseURL.Host,
+			Path:   sreq.URL}
+		sreq.URL = u.String()
+	}
+	return httpsimple.Do(*sreq)
 }
 
 // BuildFastRequest builds a valyala/fasthttp HTTP request struct.
