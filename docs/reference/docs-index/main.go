@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/grokify/gohttp/httpsimple"
-	"github.com/grokify/mogo/encoding/jsonutil"
 	"github.com/grokify/mogo/log/logutil"
 
 	"github.com/grokify/elastirad-go"
@@ -22,7 +21,6 @@ import (
 // index document request. After running this code, verify
 // by checking http://localhost:9200/twitter/_search
 func main() {
-	//esClient := elastirad.NewClient(url.URL{})
 	esClient, err := elastirad.NewSimpleClient("", "", "", true)
 	logutil.FatalErr(err)
 
@@ -39,13 +37,13 @@ func main() {
 		URL:    strings.Join([]string{"twitter/tweet", id, elastirad.CreateSlug}, "/"),
 		IsJSON: true,
 		Body:   tweet})
-	procResponse(resp, err)
+	reference.ProcResponse(resp, err)
 
 	// Get/Check Doc
 	resp, err = esClient.Do(httpsimple.SimpleRequest{
 		Method: http.MethodGet,
 		URL:    strings.Join([]string{"twitter/tweet", id}, "/")})
-	procResponse(resp, err)
+	reference.ProcResponse(resp, err)
 
 	// update Doc
 	tweet.Message = "trying out Elasticsearch again"
@@ -55,24 +53,13 @@ func main() {
 		URL:    strings.Join([]string{"twitter/tweet", id, elastirad.UpdateSlug}, "/"),
 		IsJSON: true,
 		Body:   models.UpdateIndexDoc{Doc: tweet}})
-	procResponse(resp, err)
+	reference.ProcResponse(resp, err)
 
 	// Get/Check Doc
 	resp, err = esClient.Do(httpsimple.SimpleRequest{
 		Method: http.MethodGet,
 		URL:    strings.Join([]string{"twitter/tweet", id}, "/")})
-	procResponse(resp, err)
+	reference.ProcResponse(resp, err)
 
 	fmt.Println("DONE")
-}
-
-func procResponse(resp *http.Response, err error) {
-	logutil.FatalErr(err)
-	if resp == nil {
-		return
-	}
-	body, err := jsonutil.PrettyPrintReader(resp.Body, "", "  ")
-	logutil.FatalErr(err)
-	fmt.Printf("C_RES_BODY: %v\n", string(body))
-	fmt.Printf("C_RES_STATUS: %v\n", resp.StatusCode)
 }

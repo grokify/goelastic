@@ -1,5 +1,13 @@
 package reference
 
+import(
+"fmt"
+"net/http"
+
+"github.com/grokify/mogo/encoding/jsonutil"
+"github.com/grokify/mogo/log/logutil"
+)
+
 const (
 	Index        = "twitter"
 	Type         = "tweet"
@@ -28,4 +36,15 @@ type Location struct {
 	Locode      string  `json:"locode,omitempty"`
 	Lat         float64 `json:"lat,omitempty"`
 	Lon         float64 `json:"lon,omitempty"`
+}
+
+func ProcResponse(resp *http.Response, err error) {
+	logutil.FatalErr(err)
+	if resp == nil {
+		return
+	}
+	body, err := jsonutil.PrettyPrintReader(resp.Body, "", "  ")
+	logutil.FatalErr(err)
+	fmt.Printf("C_RES_BODY: %v\n", string(body))
+	fmt.Printf("C_RES_STATUS: %v\n", resp.StatusCode)
 }
