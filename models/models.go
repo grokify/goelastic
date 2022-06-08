@@ -1,5 +1,6 @@
 package models
 
+/*
 import (
 	"net/url"
 )
@@ -13,6 +14,7 @@ type Request struct {
 	ContentType string
 	Body        interface{}
 }
+*/
 
 // UpdateIndexDoc represents the body for a doc partial update.
 type UpdateIndexDoc struct {

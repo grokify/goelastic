@@ -1,27 +1,20 @@
 package elastirad
 
 import (
-	"bytes"
-	"encoding/json"
-	"errors"
 	"net/http"
-	"net/url"
 	"strings"
 
+	"github.com/grokify/goauth"
 	"github.com/grokify/gohttp/httpsimple"
-	"github.com/grokify/mogo/net/httputilmore"
-	"github.com/grokify/mogo/net/urlutil"
-	"github.com/grokify/mogo/type/stringsutil"
-	"github.com/valyala/fasthttp"
-
-	"github.com/grokify/elastirad-go/models"
 )
 
 const (
 	// ElasticsearchAPIDefaultScheme is the HTTP scheme for the default server.
-	ElasticsearchAPIDefaultScheme string = "http"
+	ElasticsearchAPIDefaultScheme string = "https"
 	// ElasticsearchAPIDefaultHost is the HTTP host for the default server.
 	ElasticsearchAPIDefaultHost string = "127.0.0.1:9200"
+	// ElasticsearchAPIDefaultHost is the HTTP host for the default server.
+	ElasticsearchAPIDefaultURL string = "https://127.0.0.1:9200"
 	// CreateSlug is the URL path part for creates.
 	CreateSlug string = "_create"
 	// UpdateSlug is the URL path part for updates.
@@ -29,6 +22,26 @@ const (
 	// SearchSlug is the URL path part for search.
 	SearchSlug string = "_search"
 )
+
+func NewSimpleClient(serverURL, username, password string, allowInsecure bool) (httpsimple.SimpleClient, error) {
+	if len(strings.TrimSpace(serverURL)) == 0 {
+		serverURL = ElasticsearchAPIDefaultURL
+	}
+	if len(username) > 0 || len(password) > 0 {
+		hclient, err := goauth.NewClientBasicAuth(username, password, allowInsecure)
+		if err != nil {
+			return httpsimple.SimpleClient{}, err
+		}
+		return httpsimple.SimpleClient{
+			BaseURL:    serverURL,
+			HTTPClient: hclient}, nil
+	}
+	return httpsimple.SimpleClient{
+		BaseURL:    serverURL,
+		HTTPClient: goauth.NewClientHeaders(http.Header{}, allowInsecure)}, nil
+}
+
+/*
 
 // Client is a API client for Elasticsearch.
 type Client struct {
@@ -154,3 +167,5 @@ func (c *Client) BuildURL(esReq models.Request) url.URL {
 		Path:   stringsutil.JoinInterface(esReq.Path, "/", true, false, "")}
 	return reqURL
 }
+
+*/
