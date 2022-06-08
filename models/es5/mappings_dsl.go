@@ -36,6 +36,11 @@ PUT my_index
 
 */
 
+const (
+	IndexNotAnalyzed = "not_analyzed"
+	TypeString       = "string"
+)
+
 type CreateIndexBody struct {
 	Index    *Index             `json:"index,omitempty"`
 	Settings *Settings          `json:"settings,omitempty"`
