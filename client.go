@@ -36,7 +36,7 @@ func NewSimpleClient(serverURL, username, password string, allowInsecure bool) (
 	}
 	return httpsimple.SimpleClient{
 		BaseURL:    serverURL,
-		HTTPClient: goauth.NewClientHeadersQuery(http.Header{}, url.Values{}, allowInsecure)}, nil
+		HTTPClient: goauth.NewClientHeaderQuery(http.Header{}, url.Values{}, allowInsecure)}, nil
 }
 
 /*
