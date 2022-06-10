@@ -2,6 +2,7 @@ package elastirad
 
 import (
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/grokify/goauth"
@@ -35,7 +36,7 @@ func NewSimpleClient(serverURL, username, password string, allowInsecure bool) (
 	}
 	return httpsimple.SimpleClient{
 		BaseURL:    serverURL,
-		HTTPClient: goauth.NewClientHeaders(http.Header{}, allowInsecure)}, nil
+		HTTPClient: goauth.NewClientHeadersQuery(http.Header{}, url.Values{}, allowInsecure)}, nil
 }
 
 /*
