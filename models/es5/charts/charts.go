@@ -17,8 +17,10 @@ func C3ChartForEsAggregationSimple(agg es5.AggregationResRad) c3.C3Chart {
 		},
 	}
 	for _, bucket := range agg.AggregationData.Buckets {
-		c3Column := []interface{}{bucket.Key, bucket.DocCount}
-		c3Chart.Data.Columns = append(c3Chart.Data.Columns, c3Column)
+		c3Chart.Data.Columns = append(
+			c3Chart.Data.Columns,
+			[]interface{}{bucket.Key, bucket.DocCount}, // c3Column := []interface{}{bucket.Key, bucket.DocCount}
+		)
 	}
 	return c3Chart
 }
