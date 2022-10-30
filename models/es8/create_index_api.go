@@ -45,3 +45,9 @@ type Property struct {
 	Properties  map[string]Property `json:"properties,omitempty"`
 	Fields      map[string]Property `json:"fields,omitempty"` // key can be "raw"
 }
+
+func SettingsTest() *Settings {
+	return &Settings{
+		NumberOfShards: 1,
+	}
+}
