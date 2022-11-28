@@ -9,7 +9,7 @@ import (
 	"github.com/grokify/mogo/fmt/fmtutil"
 	"github.com/grokify/mogo/log/logutil"
 
-	"github.com/grokify/elastirad-go"
+	elastirad "github.com/grokify/elastirad-go"
 	"github.com/grokify/elastirad-go/docs/reference"
 	"github.com/grokify/elastirad-go/models/es5"
 )
