@@ -33,7 +33,7 @@ func main() {
 	resp, err := sclient.Do(*sreq)
 	logutil.FatalErr(err)
 
-	data, err := jsonutil.PrettyPrintReader(resp.Body, "", "  ")
+	data, err := jsonutil.IndentReader(resp.Body, "", "  ")
 	logutil.FatalErr(err)
 
 	fmt.Println(string(data))

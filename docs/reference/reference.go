@@ -43,7 +43,7 @@ func ProcResponse(resp *http.Response, err error) {
 	if resp == nil {
 		return
 	}
-	body, err := jsonutil.PrettyPrintReader(resp.Body, "", "  ")
+	body, err := jsonutil.IndentReader(resp.Body, "", "  ")
 	logutil.FatalErr(err)
 	fmt.Printf("C_RES_BODY: %v\n", string(body))
 	fmt.Printf("C_RES_STATUS: %v\n", resp.StatusCode)
