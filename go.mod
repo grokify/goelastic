@@ -6,7 +6,7 @@ require (
 	github.com/grokify/goauth v0.16.6
 	github.com/grokify/gocharts/v2 v2.8.5
 	github.com/grokify/gohttp v0.2.2
-	github.com/grokify/mogo v0.41.6
+	github.com/grokify/mogo v0.41.10
 	github.com/jessevdk/go-flags v1.5.0
 )
 
