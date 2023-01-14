@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/grokify/gohttp/httpsimple"
 	"github.com/grokify/mogo/fmt/fmtutil"
 	"github.com/grokify/mogo/log/logutil"
+	"github.com/grokify/mogo/net/http/httpsimple"
 
 	elastirad "github.com/grokify/elastirad-go"
 	"github.com/grokify/elastirad-go/docs/reference"
@@ -33,10 +33,10 @@ func main() {
 	fmtutil.MustPrintJSON(body)
 
 	resp, err := esClient.Do(httpsimple.SimpleRequest{
-		Method: http.MethodPost,
-		URL:    strings.Join([]string{"twitter/tweet", elastirad.SearchSlug}, "/"),
-		IsJSON: true,
-		Body:   body})
+		Method:   http.MethodPost,
+		URL:      strings.Join([]string{"twitter/tweet", elastirad.SearchSlug}, "/"),
+		BodyType: httpsimple.BodyTypeJSON,
+		Body:     body})
 	reference.ProcResponse(resp, err)
 
 	fmt.Println("DONE")

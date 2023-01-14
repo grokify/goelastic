@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/grokify/gohttp/httpsimple"
 	"github.com/grokify/mogo/fmt/fmtutil"
 	"github.com/grokify/mogo/log/logutil"
+	"github.com/grokify/mogo/net/http/httpsimple"
 
 	elastirad "github.com/grokify/elastirad-go"
 	"github.com/grokify/elastirad-go/docs/reference"
@@ -37,10 +37,10 @@ func main() {
 	fmtutil.MustPrintJSON(body)
 
 	resp, err := esClient.Do(httpsimple.SimpleRequest{
-		Method: http.MethodPut,
-		URL:    "twitter",
-		IsJSON: true,
-		Body:   body})
+		Method:   http.MethodPut,
+		URL:      "twitter",
+		BodyType: httpsimple.BodyTypeJSON,
+		Body:     body})
 	reference.ProcResponse(resp, err)
 
 	fmt.Println("DONE")

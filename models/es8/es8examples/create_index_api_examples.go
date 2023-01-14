@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/grokify/elastirad-go/models/es8"
-	"github.com/grokify/gohttp/httpsimple"
+	"github.com/grokify/mogo/net/http/httpsimple"
 )
 
 // CreateIndexExampleMappings provides a simple request for the example from: https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#mappings
@@ -26,9 +26,9 @@ PUT /test
 */
 func ExampleCreateIndexMappings() *httpsimple.SimpleRequest {
 	return &httpsimple.SimpleRequest{
-		Method: http.MethodPut,
-		URL:    "/test",
-		IsJSON: true,
+		Method:   http.MethodPut,
+		URL:      "/test",
+		BodyType: httpsimple.BodyTypeJSON,
 		Body: es8.CreateIndexBody{
 			Settings: &es8.Settings{
 				NumberOfShards: 1,

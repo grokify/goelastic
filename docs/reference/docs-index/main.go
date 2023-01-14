@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/grokify/gohttp/httpsimple"
 	"github.com/grokify/mogo/log/logutil"
+	"github.com/grokify/mogo/net/http/httpsimple"
 
 	elastirad "github.com/grokify/elastirad-go"
 	"github.com/grokify/elastirad-go/docs/reference"
@@ -33,10 +33,10 @@ func main() {
 
 	// Create Doc
 	resp, err := esClient.Do(httpsimple.SimpleRequest{
-		Method: http.MethodPost,
-		URL:    strings.Join([]string{"twitter/tweet", id, elastirad.CreateSlug}, "/"),
-		IsJSON: true,
-		Body:   tweet})
+		Method:   http.MethodPost,
+		URL:      strings.Join([]string{"twitter/tweet", id, elastirad.CreateSlug}, "/"),
+		BodyType: httpsimple.BodyTypeJSON,
+		Body:     tweet})
 	reference.ProcResponse(resp, err)
 
 	// Get/Check Doc
@@ -49,10 +49,10 @@ func main() {
 	tweet.Message = "trying out Elasticsearch again"
 
 	resp, err = esClient.Do(httpsimple.SimpleRequest{
-		Method: http.MethodPost,
-		URL:    strings.Join([]string{"twitter/tweet", id, elastirad.UpdateSlug}, "/"),
-		IsJSON: true,
-		Body:   models.UpdateIndexDoc{Doc: tweet}})
+		Method:   http.MethodPost,
+		URL:      strings.Join([]string{"twitter/tweet", id, elastirad.UpdateSlug}, "/"),
+		BodyType: httpsimple.BodyTypeJSON,
+		Body:     models.UpdateIndexDoc{Doc: tweet}})
 	reference.ProcResponse(resp, err)
 
 	// Get/Check Doc

@@ -33,7 +33,7 @@ func EsAggsToTimeSeriesSet(aggs []es5.AggregationResRad, timeInterval timeutil.I
 		for _, bucket := range agg.AggregationData.Buckets {
 			set.AddItem(timeseries.TimeItem{
 				SeriesName: seriesName,
-				Time:       timeutil.UnixMillis(int64(bucket.Key.(float64))),
+				Time:       time.UnixMilli(int64(bucket.Key.(float64))),
 				Value:      int64(bucket.DocCount)})
 		}
 	}

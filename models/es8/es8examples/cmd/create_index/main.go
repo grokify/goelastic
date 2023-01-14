@@ -5,9 +5,9 @@ import (
 
 	"github.com/grokify/elastirad-go/models/es8/es8examples"
 	"github.com/grokify/goauth"
-	"github.com/grokify/gohttp/httpsimple"
 	"github.com/grokify/mogo/encoding/jsonutil"
 	"github.com/grokify/mogo/log/logutil"
+	"github.com/grokify/mogo/net/http/httpsimple"
 	flags "github.com/jessevdk/go-flags"
 )
 
