@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/grokify/goauth v0.17.6
-	github.com/grokify/gocharts/v2 v2.8.10
+	github.com/grokify/gocharts/v2 v2.9.0
 	github.com/grokify/mogo v0.49.1
 	github.com/jessevdk/go-flags v1.5.0
 )
