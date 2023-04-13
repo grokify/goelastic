@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/grokify/elastirad-go/models/es8/es8examples"
-	"github.com/grokify/goauth"
+	"github.com/grokify/goauth/authutil"
 	"github.com/grokify/mogo/encoding/jsonutil"
 	"github.com/grokify/mogo/log/logutil"
 	"github.com/grokify/mogo/net/http/httpsimple"
@@ -21,7 +21,7 @@ func main() {
 	_, err := flags.Parse(&opts)
 	logutil.FatalErr(err)
 
-	hclient, err := goauth.NewClientBasicAuth(opts.Username, opts.Password, true)
+	hclient, err := authutil.NewClientBasicAuth(opts.Username, opts.Password, true)
 	logutil.FatalErr(err)
 
 	sclient := httpsimple.SimpleClient{

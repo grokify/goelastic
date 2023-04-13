@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/grokify/goauth"
+	"github.com/grokify/goauth/authutil"
 	"github.com/grokify/mogo/net/http/httpsimple"
 )
 
@@ -29,14 +29,14 @@ func NewSimpleClient(serverURL, username, password string, allowInsecure bool) (
 		serverURL = ElasticsearchAPIDefaultURL
 	}
 	if len(username) > 0 || len(password) > 0 {
-		hclient, err := goauth.NewClientBasicAuth(username, password, allowInsecure)
+		hclient, err := authutil.NewClientBasicAuth(username, password, allowInsecure)
 		return httpsimple.SimpleClient{
 			BaseURL:    serverURL,
 			HTTPClient: hclient}, err
 	}
 	return httpsimple.SimpleClient{
 		BaseURL:    serverURL,
-		HTTPClient: goauth.NewClientHeaderQuery(http.Header{}, url.Values{}, allowInsecure)}, nil
+		HTTPClient: authutil.NewClientHeaderQuery(http.Header{}, url.Values{}, allowInsecure)}, nil
 }
 
 /*
