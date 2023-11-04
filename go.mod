@@ -2,7 +2,7 @@ module github.com/grokify/elastirad-go
 
 go 1.21
 
-toolchain go1.21.1
+// toolchain go1.21.1
 
 require (
 	github.com/grokify/goauth v0.20.4
