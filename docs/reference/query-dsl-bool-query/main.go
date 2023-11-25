@@ -32,7 +32,7 @@ func main() {
 
 	fmtutil.MustPrintJSON(body)
 
-	resp, err := esClient.Do(httpsimple.SimpleRequest{
+	resp, err := esClient.Do(httpsimple.Request{
 		Method:   http.MethodPost,
 		URL:      strings.Join([]string{"twitter/tweet", elastirad.SearchSlug}, "/"),
 		BodyType: httpsimple.BodyTypeJSON,

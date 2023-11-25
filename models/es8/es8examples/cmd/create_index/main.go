@@ -24,7 +24,7 @@ func main() {
 	hclient, err := authutil.NewClientBasicAuth(opts.Username, opts.Password, true)
 	logutil.FatalErr(err)
 
-	sclient := httpsimple.SimpleClient{
+	sclient := httpsimple.Client{
 		BaseURL:    "https://localhost:9200",
 		HTTPClient: hclient}
 

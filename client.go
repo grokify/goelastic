@@ -24,17 +24,17 @@ const (
 	SearchSlug string = "_search"
 )
 
-func NewSimpleClient(serverURL, username, password string, allowInsecure bool) (httpsimple.SimpleClient, error) {
+func NewSimpleClient(serverURL, username, password string, allowInsecure bool) (httpsimple.Client, error) {
 	if len(strings.TrimSpace(serverURL)) == 0 {
 		serverURL = ElasticsearchAPIDefaultURL
 	}
 	if len(username) > 0 || len(password) > 0 {
 		hclient, err := authutil.NewClientBasicAuth(username, password, allowInsecure)
-		return httpsimple.SimpleClient{
+		return httpsimple.Client{
 			BaseURL:    serverURL,
 			HTTPClient: hclient}, err
 	}
-	return httpsimple.SimpleClient{
+	return httpsimple.Client{
 		BaseURL:    serverURL,
 		HTTPClient: authutil.NewClientHeaderQuery(http.Header{}, url.Values{}, allowInsecure)}, nil
 }

@@ -32,7 +32,7 @@ func main() {
 		HashTags: []string{"elasticsearch", "wow"}}
 
 	// Create Doc
-	resp, err := esClient.Do(httpsimple.SimpleRequest{
+	resp, err := esClient.Do(httpsimple.Request{
 		Method:   http.MethodPost,
 		URL:      strings.Join([]string{"twitter/tweet", id, elastirad.CreateSlug}, "/"),
 		BodyType: httpsimple.BodyTypeJSON,
@@ -40,7 +40,7 @@ func main() {
 	reference.ProcResponse(resp, err)
 
 	// Get/Check Doc
-	resp, err = esClient.Do(httpsimple.SimpleRequest{
+	resp, err = esClient.Do(httpsimple.Request{
 		Method: http.MethodGet,
 		URL:    strings.Join([]string{"twitter/tweet", id}, "/")})
 	reference.ProcResponse(resp, err)
@@ -48,7 +48,7 @@ func main() {
 	// update Doc
 	tweet.Message = "trying out Elasticsearch again"
 
-	resp, err = esClient.Do(httpsimple.SimpleRequest{
+	resp, err = esClient.Do(httpsimple.Request{
 		Method:   http.MethodPost,
 		URL:      strings.Join([]string{"twitter/tweet", id, elastirad.UpdateSlug}, "/"),
 		BodyType: httpsimple.BodyTypeJSON,
@@ -56,7 +56,7 @@ func main() {
 	reference.ProcResponse(resp, err)
 
 	// Get/Check Doc
-	resp, err = esClient.Do(httpsimple.SimpleRequest{
+	resp, err = esClient.Do(httpsimple.Request{
 		Method: http.MethodGet,
 		URL:    strings.Join([]string{"twitter/tweet", id}, "/")})
 	reference.ProcResponse(resp, err)

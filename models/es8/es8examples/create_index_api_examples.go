@@ -24,8 +24,8 @@ PUT /test
   }
 }
 */
-func ExampleCreateIndexMappings() *httpsimple.SimpleRequest {
-	return &httpsimple.SimpleRequest{
+func ExampleCreateIndexMappings() *httpsimple.Request {
+	return &httpsimple.Request{
 		Method:   http.MethodPut,
 		URL:      "/test",
 		BodyType: httpsimple.BodyTypeJSON,
