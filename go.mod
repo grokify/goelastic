@@ -5,15 +5,16 @@ go 1.21
 // toolchain go1.21.1
 
 require (
-	github.com/grokify/goauth v0.20.6
-	github.com/grokify/gocharts/v2 v2.16.0
-	github.com/grokify/mogo v0.62.2
+	github.com/grokify/goauth v0.20.7
+	github.com/grokify/gocharts/v2 v2.16.1
+	github.com/grokify/mogo v0.62.3
 	github.com/jessevdk/go-flags v1.5.0
 )
 
 require (
 	github.com/golang-jwt/jwt/v5 v5.2.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/grokify/base36 v1.0.5 // indirect
 	github.com/huandu/xstrings v1.4.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
