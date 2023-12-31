@@ -42,7 +42,7 @@ func main() {
 
 	resp, err := esClient.Do(httpsimple.Request{
 		Method:   http.MethodPost,
-		URL:      strings.Join([]string{"twitter/tweet", elastirad.SearchSlug}, "/"),
+		URL:      strings.Join([]string{"twitter/tweet", elastirad.SlugSearch}, "/"),
 		Body:     body,
 		BodyType: httpsimple.BodyTypeJSON})
 	reference.ProcResponse(resp, err)

@@ -34,7 +34,7 @@ func main() {
 	// Create Doc
 	resp, err := esClient.Do(httpsimple.Request{
 		Method:   http.MethodPost,
-		URL:      strings.Join([]string{"twitter/tweet", id, elastirad.CreateSlug}, "/"),
+		URL:      strings.Join([]string{"twitter/tweet", id, elastirad.SlugCreate}, "/"),
 		BodyType: httpsimple.BodyTypeJSON,
 		Body:     tweet})
 	reference.ProcResponse(resp, err)
@@ -50,7 +50,7 @@ func main() {
 
 	resp, err = esClient.Do(httpsimple.Request{
 		Method:   http.MethodPost,
-		URL:      strings.Join([]string{"twitter/tweet", id, elastirad.UpdateSlug}, "/"),
+		URL:      strings.Join([]string{"twitter/tweet", id, elastirad.SlugUpdate}, "/"),
 		BodyType: httpsimple.BodyTypeJSON,
 		Body:     models.UpdateIndexDoc{Doc: tweet}})
 	reference.ProcResponse(resp, err)
