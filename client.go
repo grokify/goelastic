@@ -19,8 +19,9 @@ import (
 
 var (
 	ErrClientNotSet     = errors.New("httpsimple.Client not set")
-	ErrTargetNetSet     = errors.New("target not set")
-	ErrDocumentIDNotSet = errors.New("document id not set")
+	ErrDocumentIDNotSet = errors.New("document id cannot be empty")
+	ErrEmptyRequest     = errors.New("request cannot be empty")
+	ErrTargetNetSet     = errors.New("target cannot be empty")
 )
 
 type Client struct {
@@ -127,8 +128,7 @@ func (c *Client) validateClientAndTarget(target string) error {
 func NewSimpleClient(serverURL, username, password string, allowInsecure bool) (httpsimple.Client, error) {
 	if len(strings.TrimSpace(serverURL)) == 0 {
 		serverURL = DefaultServerURL
-	}
-	if len(username) > 0 || len(password) > 0 {
+	} else if len(username) > 0 || len(password) > 0 {
 		hclient, err := authutil.NewClientBasicAuth(username, password, allowInsecure)
 		return httpsimple.Client{
 			BaseURL:    serverURL,
@@ -160,132 +160,3 @@ func NewConfigSimple(addrURL, username, password string, tlsInsecureSkipVerify b
 		},
 	}
 }
-
-/*
-
-// Client is a API client for Elasticsearch.
-type Client struct {
-	BaseURL        url.URL
-	Client         *http.Client
-	FastHTTPClient *fasthttp.Client
-}
-
-// NewClient returns a Client struct given a Elasticsearch
-// server URL.
-func NewClient(baseURL url.URL) Client {
-	c := Client{
-		BaseURL:        baseURL,
-		FastHTTPClient: &fasthttp.Client{}}
-	c.SetDefaults()
-	return c
-}
-
-// SetDefaults sets default values where not specified.
-func (c *Client) SetDefaults() {
-	if len(strings.TrimSpace(c.BaseURL.Scheme)) < 1 {
-		c.BaseURL.Scheme = ElasticsearchAPIDefaultScheme
-	}
-	if len(strings.TrimSpace(c.BaseURL.Host)) < 1 {
-		c.BaseURL.Host = ElasticsearchAPIDefaultHost
-	}
-}
-
-func (c *Client) BuildRequest(esReq models.Request) (*http.Request, error) {
-	esURL := c.BuildURL(esReq)
-	var body *bytes.Reader
-	if esReq.Body != nil {
-		data, err := json.Marshal(esReq.Body)
-		if err != nil {
-			return nil, err
-		}
-		body = bytes.NewReader(data)
-	}
-	return http.NewRequest(esReq.Method, esURL.String(), body)
-}
-
-func (c *Client) SendRequest(esReq models.Request) (*http.Response, error) {
-	req, err := c.BuildRequest(esReq)
-	if err != nil {
-		return nil, err
-	}
-
-	if len(strings.TrimSpace(esReq.ContentType)) > 0 {
-		req.Header.Add(httputilmore.HeaderContentType, esReq.ContentType)
-	} else {
-		req.Header.Add(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
-	}
-
-	client := c.Client
-	if client == nil {
-		client = &http.Client{}
-	}
-	return client.Do(req)
-}
-
-var ErrEmptyRequest = errors.New("request cannot be empty")
-
-func (c *Client) SendSimpleRequest(sreq *httpsimple.SimpleRequest) (*http.Response, error) {
-	if sreq == nil {
-		return nil, ErrEmptyRequest
-	}
-	if !urlutil.URIHasScheme(sreq.URL) {
-		u := url.URL{
-			Scheme: c.BaseURL.Scheme,
-			Host:   c.BaseURL.Host,
-			Path:   sreq.URL}
-		sreq.URL = u.String()
-	}
-	return httpsimple.Do(*sreq)
-}
-
-// BuildFastRequest builds a valyala/fasthttp HTTP request struct.
-func (c *Client) BuildFastRequest(esReq models.Request) (*fasthttp.Request, error) {
-	req := fasthttp.AcquireRequest()
-
-	req.Header.SetMethod(esReq.Method)
-	esURL := c.BuildURL(esReq)
-	req.Header.SetRequestURI(esURL.String())
-
-	if len(strings.TrimSpace(esReq.ContentType)) > 0 {
-		req.Header.Set(httputilmore.HeaderContentType, esReq.ContentType)
-	} else {
-		req.Header.Set(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
-	}
-
-	if esReq.Body != nil {
-		bytes, err := json.Marshal(esReq.Body)
-		if err != nil {
-			return req, err
-		}
-		req.SetBody(bytes)
-	}
-
-	return req, nil
-}
-
-// SendFastRequest executes a valyala/fasthttp HTTP request and returns
-// the response, request and error structs.
-func (c *Client) SendFastRequest(esReq models.Request) (*fasthttp.Response, *fasthttp.Request, error) {
-	res := fasthttp.AcquireResponse()
-
-	req, err := c.BuildFastRequest(esReq)
-	if err != nil {
-		return res, req, err
-	}
-
-	err = c.FastHTTPClient.Do(req, res)
-
-	return res, req, err
-}
-
-// BuildURL merges the URL info in the request with the Elasticsearch
-// server info configured in the client.
-func (c *Client) BuildURL(esReq models.Request) url.URL {
-	reqURL := url.URL{
-		Scheme: c.BaseURL.Scheme,
-		Host:   c.BaseURL.Host,
-		Path:   stringsutil.JoinInterface(esReq.Path, "/", true, false, "")}
-	return reqURL
-}
-
-*/
