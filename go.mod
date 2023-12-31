@@ -5,6 +5,7 @@ go 1.21
 // toolchain go1.21.1
 
 require (
+	github.com/elastic/go-elasticsearch/v8 v8.11.1
 	github.com/grokify/goauth v0.20.8
 	github.com/grokify/gocharts/v2 v2.16.2
 	github.com/grokify/mogo v0.62.6
@@ -12,6 +13,7 @@ require (
 )
 
 require (
+	github.com/elastic/elastic-transport-go/v8 v8.3.0 // indirect
 	github.com/golang-jwt/jwt/v5 v5.2.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect

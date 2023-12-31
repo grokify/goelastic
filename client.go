@@ -1,32 +1,93 @@
 package elastirad
 
 import (
+	"crypto/tls"
+	"errors"
+	"net"
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
+	elasticsearch "github.com/elastic/go-elasticsearch/v8"
 	"github.com/grokify/goauth/authutil"
 	"github.com/grokify/mogo/net/http/httpsimple"
+	"github.com/grokify/mogo/net/urlutil"
 )
 
-const (
-	// ElasticsearchAPIDefaultScheme is the HTTP scheme for the default server.
-	ElasticsearchAPIDefaultScheme string = "https"
-	// ElasticsearchAPIDefaultHost is the HTTP host for the default server.
-	ElasticsearchAPIDefaultHost string = "127.0.0.1:9200"
-	// ElasticsearchAPIDefaultHost is the HTTP host for the default server.
-	ElasticsearchAPIDefaultURL string = "https://127.0.0.1:9200"
-	// CreateSlug is the URL path part for creates.
-	CreateSlug string = "_create"
-	// UpdateSlug is the URL path part for updates.
-	UpdateSlug string = "_update"
-	// SearchSlug is the URL path part for search.
-	SearchSlug string = "_search"
+var (
+	ErrClientNotSet = errors.New("httpsimple.Client not set")
+	ErrTargetNetSet = errors.New("target not set")
 )
+
+type Client struct {
+	SimpleClient *httpsimple.Client
+}
+
+// IndexCreate creates an index. Documented at: https://www.elastic.co/guide/en/elasticsearch/reference/current/explicit-mapping.html .
+func (c *Client) IndexCreate(target string, body any) (*http.Response, error) {
+	if err := c.validateClientAndTarget(target); err != nil {
+		return nil, err
+	} else {
+		return c.SimpleClient.Do(httpsimple.Request{
+			Method: http.MethodPut,
+			URL:    target,
+			Body:   body,
+		})
+	}
+}
+
+// IndexPatch patches an index. Documented at: https://www.elastic.co/guide/en/elasticsearch/reference/current/explicit-mapping.html#add-field-mapping .
+func (c *Client) IndexPatch(target string, body any) (*http.Response, error) {
+	if err := c.validateClientAndTarget(target); err != nil {
+		return nil, err
+	} else {
+		return c.SimpleClient.Do(httpsimple.Request{
+			Method: http.MethodPut,
+			URL:    urlutil.JoinAbsolute(target, SlugMapping),
+			Body:   body,
+		})
+	}
+}
+
+// DocumentRead reads a document. Documented at: https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html .
+func (c *Client) DocumentRead(target, id string) (*http.Response, error) {
+	if err := c.validateClientAndTarget(target); err != nil {
+		return nil, err
+	} else {
+		return c.SimpleClient.Do(httpsimple.Request{
+			Method: http.MethodGet,
+			URL:    urlutil.JoinAbsolute(target, SlugDoc, id),
+		})
+	}
+}
+
+// DocumentCreate crates a document with the document id `id`. If `id` is empty, a document id is created.`
+func (c *Client) DocumentCreate(target, id string, body any) (*http.Response, error) {
+	if err := c.validateClientAndTarget(target); err != nil {
+		return nil, err
+	} else {
+		return c.SimpleClient.Do(httpsimple.Request{
+			Method: http.MethodGet,
+			URL:    urlutil.JoinAbsolute(target, SlugCreate, id),
+			Body:   body,
+		})
+	}
+}
+
+func (c *Client) validateClientAndTarget(target string) error {
+	if c.SimpleClient == nil {
+		return ErrClientNotSet
+	} else if strings.TrimSpace(target) == "" {
+		return ErrTargetNetSet
+	} else {
+		return nil
+	}
+}
 
 func NewSimpleClient(serverURL, username, password string, allowInsecure bool) (httpsimple.Client, error) {
 	if len(strings.TrimSpace(serverURL)) == 0 {
-		serverURL = ElasticsearchAPIDefaultURL
+		serverURL = DefaultServerURL
 	}
 	if len(username) > 0 || len(password) > 0 {
 		hclient, err := authutil.NewClientBasicAuth(username, password, allowInsecure)
@@ -37,6 +98,28 @@ func NewSimpleClient(serverURL, username, password string, allowInsecure bool) (
 	return httpsimple.Client{
 		BaseURL:    serverURL,
 		HTTPClient: authutil.NewClientHeaderQuery(http.Header{}, url.Values{}, allowInsecure)}, nil
+}
+
+func NewConfigSimple(addrURL, username, password string, tlsInsecureSkipVerify bool) elasticsearch.Config {
+	if strings.TrimSpace(addrURL) == "" {
+		addrURL = DefaultServerURL
+	}
+	return elasticsearch.Config{
+		Addresses: []string{
+			addrURL,
+		},
+		Username: username,
+		Password: password,
+		Transport: &http.Transport{
+			MaxIdleConnsPerHost:   10,
+			ResponseHeaderTimeout: time.Second,
+			DialContext:           (&net.Dialer{Timeout: 2 * time.Second}).DialContext,
+			TLSClientConfig: &tls.Config{
+				MinVersion:         tls.VersionTLS12,
+				InsecureSkipVerify: tlsInsecureSkipVerify,
+			},
+		},
+	}
 }
 
 /*
