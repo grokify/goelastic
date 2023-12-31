@@ -116,7 +116,7 @@ func NewConfigSimple(addrURL, username, password string, tlsInsecureSkipVerify b
 			DialContext:           (&net.Dialer{Timeout: 2 * time.Second}).DialContext,
 			TLSClientConfig: &tls.Config{
 				MinVersion:         tls.VersionTLS12,
-				InsecureSkipVerify: tlsInsecureSkipVerify,
+				InsecureSkipVerify: tlsInsecureSkipVerify, // #nosec G402 - used for local testing.
 			},
 		},
 	}
