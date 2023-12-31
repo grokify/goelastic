@@ -19,8 +19,8 @@ import (
 
 var (
 	ErrClientNotSet     = errors.New("httpsimple.Client not set")
-	ErrDocumentIDNotSet = errors.New("document id cannot be empty")
-	ErrEmptyRequest     = errors.New("request cannot be empty")
+	ErrDocumentIDNotSet = errors.New("document id s be empty")
+	ErrRequestNotSet    = errors.New("request cannot be empty")
 	ErrTargetNetSet     = errors.New("target cannot be empty")
 )
 
