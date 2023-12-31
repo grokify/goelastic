@@ -2,7 +2,9 @@ package goelastic
 
 import (
 	"crypto/tls"
+	"encoding/json"
 	"errors"
+	"io"
 	"net"
 	"net/http"
 	"net/url"
@@ -30,9 +32,10 @@ func (c *Client) IndexCreate(target string, body any) (*http.Response, error) {
 		return nil, err
 	} else {
 		return c.SimpleClient.Do(httpsimple.Request{
-			Method: http.MethodPut,
-			URL:    target,
-			Body:   body,
+			Method:   http.MethodPut,
+			URL:      target,
+			Body:     body,
+			BodyType: httpsimple.BodyTypeJSON,
 		})
 	}
 }
@@ -43,15 +46,47 @@ func (c *Client) IndexPatch(target string, body any) (*http.Response, error) {
 		return nil, err
 	} else {
 		return c.SimpleClient.Do(httpsimple.Request{
-			Method: http.MethodPut,
-			URL:    urlutil.JoinAbsolute(target, SlugMapping),
-			Body:   body,
+			Method:   http.MethodPut,
+			URL:      urlutil.JoinAbsolute(target, SlugMapping),
+			Body:     body,
+			BodyType: httpsimple.BodyTypeJSON,
 		})
 	}
 }
 
+// DocumentRead reads a document. If `v` is a pointer, the resulting `_source` property will be unmarshaled into it.
+// The API is documented at: https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html and
+// https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/examples.html#retrieving_document .
+func (c *Client) DocumentRead(target, id string, v any) (*GetDocumentAPIResponse, *http.Response, error) {
+	apiResp := &GetDocumentAPIResponse{}
+	if err := c.validateClientAndTarget(target); err != nil {
+		return nil, nil, err
+	} else if resp, err := c.SimpleClient.Do(httpsimple.Request{
+		Method: http.MethodGet,
+		URL:    urlutil.JoinAbsolute(target, SlugDoc, id),
+	}); err != nil {
+		return nil, nil, err
+	} else if b, err := io.ReadAll(resp.Body); err != nil {
+		return nil, nil, err
+	} else if err = json.Unmarshal(b, apiResp); err != nil {
+		return nil, nil, err
+	} else if v == nil {
+		return apiResp, resp, nil
+	} else {
+		return apiResp, resp, json.Unmarshal(apiResp.Source, v)
+	}
+}
+
+// GetDocumentAPIResponse represents an Elasticsearch document response.
+type GetDocumentAPIResponse struct {
+	Index  string          `json:"_index"`
+	ID     string          `json:"_id"`
+	Found  bool            `json:"found"`
+	Source json.RawMessage `json:"_source"`
+}
+
 // DocumentRead reads a document. Documented at: https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html .
-func (c *Client) DocumentRead(target, id string) (*http.Response, error) {
+func (c *Client) DocumentReadSimple(target, id string) (*http.Response, error) {
 	if err := c.validateClientAndTarget(target); err != nil {
 		return nil, err
 	} else {
@@ -68,9 +103,10 @@ func (c *Client) DocumentCreate(target, id string, body any) (*http.Response, er
 		return nil, err
 	} else {
 		return c.SimpleClient.Do(httpsimple.Request{
-			Method: http.MethodGet,
-			URL:    urlutil.JoinAbsolute(target, SlugCreate, id),
-			Body:   body,
+			Method:   http.MethodPost,
+			URL:      urlutil.JoinAbsolute(target, SlugCreate, id),
+			Body:     body,
+			BodyType: httpsimple.BodyTypeJSON,
 		})
 	}
 }
