@@ -1,4 +1,4 @@
-package elastirad
+package goelastic
 
 import (
 	"crypto/tls"

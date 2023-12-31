@@ -3,8 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/grokify/elastirad-go/models/es8/es8examples"
 	"github.com/grokify/goauth/authutil"
+	"github.com/grokify/goelastic"
+	"github.com/grokify/goelastic/models/es8/es8examples"
 	"github.com/grokify/mogo/encoding/jsonutil"
 	"github.com/grokify/mogo/log/logutil"
 	"github.com/grokify/mogo/net/http/httpsimple"
@@ -25,7 +26,7 @@ func main() {
 	logutil.FatalErr(err)
 
 	sclient := httpsimple.Client{
-		BaseURL:    "https://localhost:9200",
+		BaseURL:    goelastic.DefaultServerURL,
 		HTTPClient: hclient}
 
 	sreq := es8examples.ExampleCreateIndexMappings()

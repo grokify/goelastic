@@ -8,9 +8,9 @@ import (
 	"github.com/grokify/mogo/log/logutil"
 	"github.com/grokify/mogo/net/http/httpsimple"
 
-	elastirad "github.com/grokify/elastirad-go"
-	"github.com/grokify/elastirad-go/docs/reference"
-	"github.com/grokify/elastirad-go/models/es5"
+	"github.com/grokify/goelastic"
+	"github.com/grokify/goelastic/docs/reference"
+	"github.com/grokify/goelastic/models/es5"
 )
 
 // Example from:
@@ -19,7 +19,7 @@ import (
 
 // main is a simple request that shows creating an index in action.
 func main() {
-	esClient, err := elastirad.NewSimpleClient("", "", "", true)
+	esClient, err := goelastic.NewSimpleClient("", "", "", true)
 	logutil.FatalErr(err)
 
 	body := es5.CreateIndexBody{

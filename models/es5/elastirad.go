@@ -1,10 +1,7 @@
 package es5
 
-import (
-	"net/url"
-)
-
-// Request is an elastirad.Request which contains generic
+/*
+// Request is an geneic request which contains generic
 // information for an Elasticsearch API request.
 type Request struct {
 	Method      string
@@ -13,6 +10,7 @@ type Request struct {
 	ContentType string
 	Body        interface{}
 }
+*/
 
 type ResponseBody struct {
 	Hits Hits `json:"hits,omitempty"`

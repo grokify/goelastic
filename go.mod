@@ -1,4 +1,4 @@
-module github.com/grokify/elastirad-go
+module github.com/grokify/goelastic
 
 go 1.21
 

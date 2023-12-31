@@ -5,7 +5,7 @@ import (
 	"net/url"
 )
 
-// Request is an elastirad.Request which contains generic
+// Request is a generic request which contains generic
 // information for an Elasticsearch API request.
 type Request struct {
 	Method      string

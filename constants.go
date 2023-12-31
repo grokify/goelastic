@@ -1,4 +1,4 @@
-package elastirad
+package goelastic
 
 const (
 	// DefaultScheme is the HTTP scheme for the default server.

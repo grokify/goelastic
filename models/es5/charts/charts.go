@@ -3,11 +3,12 @@ package charts
 import (
 	"time"
 
-	"github.com/grokify/elastirad-go/models/es5"
 	"github.com/grokify/gocharts/v2/charts/c3"
 	"github.com/grokify/gocharts/v2/data/timeseries"
 	"github.com/grokify/gocharts/v2/data/timeseries/interval"
 	"github.com/grokify/mogo/time/timeutil"
+
+	"github.com/grokify/goelastic/models/es5"
 )
 
 func C3ChartForEsAggregationSimple(agg es5.AggregationResRad) c3.C3Chart {

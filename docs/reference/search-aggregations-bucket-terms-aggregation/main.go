@@ -9,9 +9,9 @@ import (
 	"github.com/grokify/mogo/log/logutil"
 	"github.com/grokify/mogo/net/http/httpsimple"
 
-	elastirad "github.com/grokify/elastirad-go"
-	"github.com/grokify/elastirad-go/docs/reference"
-	"github.com/grokify/elastirad-go/models/es5"
+	"github.com/grokify/goelastic"
+	"github.com/grokify/goelastic/docs/reference"
+	"github.com/grokify/goelastic/models/es5"
 )
 
 // Example from:
@@ -26,7 +26,7 @@ import (
 
 // main shows nested aggregation in action
 func main() {
-	esClient, err := elastirad.NewSimpleClient("", "", "", true)
+	esClient, err := goelastic.NewSimpleClient("", "", "", true)
 	logutil.FatalErr(err)
 
 	body := es5.AggsBody{
@@ -42,7 +42,7 @@ func main() {
 
 	resp, err := esClient.Do(httpsimple.Request{
 		Method:   http.MethodPost,
-		URL:      strings.Join([]string{"twitter/tweet", elastirad.SlugSearch}, "/"),
+		URL:      strings.Join([]string{"twitter/tweet", goelastic.SlugSearch}, "/"),
 		Body:     body,
 		BodyType: httpsimple.BodyTypeJSON})
 	reference.ProcResponse(resp, err)

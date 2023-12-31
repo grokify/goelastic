@@ -3,8 +3,9 @@ package es8examples
 import (
 	"net/http"
 
-	"github.com/grokify/elastirad-go/models/es8"
 	"github.com/grokify/mogo/net/http/httpsimple"
+
+	"github.com/grokify/goelastic/models/es8"
 )
 
 // CreateIndexExampleMappings provides a simple request for the example from: https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#mappings

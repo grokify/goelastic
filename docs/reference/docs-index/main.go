@@ -9,9 +9,9 @@ import (
 	"github.com/grokify/mogo/log/logutil"
 	"github.com/grokify/mogo/net/http/httpsimple"
 
-	elastirad "github.com/grokify/elastirad-go"
-	"github.com/grokify/elastirad-go/docs/reference"
-	"github.com/grokify/elastirad-go/models"
+	"github.com/grokify/goelastic"
+	"github.com/grokify/goelastic/docs/reference"
+	"github.com/grokify/goelastic/models"
 )
 
 // Example from:
@@ -21,7 +21,7 @@ import (
 // index document request. After running this code, verify
 // by checking http://localhost:9200/twitter/_search
 func main() {
-	esClient, err := elastirad.NewSimpleClient("", "", "", true)
+	esClient, err := goelastic.NewSimpleClient("", "", "", true)
 	logutil.FatalErr(err)
 
 	id := "1"
@@ -34,7 +34,7 @@ func main() {
 	// Create Doc
 	resp, err := esClient.Do(httpsimple.Request{
 		Method:   http.MethodPost,
-		URL:      strings.Join([]string{"twitter/tweet", id, elastirad.SlugCreate}, "/"),
+		URL:      strings.Join([]string{"twitter/tweet", id, goelastic.SlugCreate}, "/"),
 		BodyType: httpsimple.BodyTypeJSON,
 		Body:     tweet})
 	reference.ProcResponse(resp, err)
@@ -50,7 +50,7 @@ func main() {
 
 	resp, err = esClient.Do(httpsimple.Request{
 		Method:   http.MethodPost,
-		URL:      strings.Join([]string{"twitter/tweet", id, elastirad.SlugUpdate}, "/"),
+		URL:      strings.Join([]string{"twitter/tweet", id, goelastic.SlugUpdate}, "/"),
 		BodyType: httpsimple.BodyTypeJSON,
 		Body:     models.UpdateIndexDoc{Doc: tweet}})
 	reference.ProcResponse(resp, err)
