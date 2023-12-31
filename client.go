@@ -18,8 +18,9 @@ import (
 )
 
 var (
-	ErrClientNotSet = errors.New("httpsimple.Client not set")
-	ErrTargetNetSet = errors.New("target not set")
+	ErrClientNotSet     = errors.New("httpsimple.Client not set")
+	ErrTargetNetSet     = errors.New("target not set")
+	ErrDocumentIDNotSet = errors.New("document id not set")
 )
 
 type Client struct {
@@ -61,15 +62,17 @@ func (c *Client) DocumentRead(target, id string, v any) (*GetDocumentAPIResponse
 	apiResp := &GetDocumentAPIResponse{}
 	if err := c.validateClientAndTarget(target); err != nil {
 		return nil, nil, err
+	} else if strings.TrimSpace(id) == "" {
+		return nil, nil, ErrDocumentIDNotSet
 	} else if resp, err := c.SimpleClient.Do(httpsimple.Request{
 		Method: http.MethodGet,
 		URL:    urlutil.JoinAbsolute(target, SlugDoc, id),
 	}); err != nil {
-		return nil, nil, err
+		return nil, resp, err
 	} else if b, err := io.ReadAll(resp.Body); err != nil {
-		return nil, nil, err
+		return nil, resp, err
 	} else if err = json.Unmarshal(b, apiResp); err != nil {
-		return nil, nil, err
+		return apiResp, resp, err
 	} else if v == nil {
 		return apiResp, resp, nil
 	} else {
