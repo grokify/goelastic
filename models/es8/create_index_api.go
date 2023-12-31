@@ -4,13 +4,6 @@ package es8
 // https://www.elastic.co/blog/strings-are-dead-long-live-strings
 // https://discuss.elastic.co/t/index-not-analyzed/126606
 
-const (
-	DefaultBaseURL = "https://localhost:9200"
-	TypeInteger    = "integer"
-	TypeKeyword    = "keyword"
-	TypeText       = "text"
-)
-
 type CreateIndexBody struct {
 	Settings *Settings `json:"settings,omitempty"`
 	Mappings *Mappings `json:"mappings,omitempty"`
@@ -38,12 +31,12 @@ type All struct {
 
 type Property struct {
 	Type        string              `json:"type,omitempty"`
-	Index       bool                `json:"index"`
+	Index       *bool               `json:"index"`
 	Format      string              `json:"format,omitempty"`
 	Path        string              `json:"path,omitempty"`
-	IgnoreAbove int                 `json:"ignore_above,omitempty"`
+	IgnoreAbove uint                `json:"ignore_above,omitempty"`
 	Properties  map[string]Property `json:"properties,omitempty"`
-	Fields      map[string]Property `json:"fields,omitempty"` // key can be "raw"
+	Fields      map[string]Property `json:"fields,omitempty"` // key can be "raw" or "keyword". See more https://www.elastic.co/guide/en/elasticsearch/reference/current/multi-fields.html#multi-fields .
 }
 
 func SettingsTest() *Settings {
