@@ -6,9 +6,9 @@ go 1.21
 
 require (
 	github.com/elastic/go-elasticsearch/v8 v8.11.1
-	github.com/grokify/goauth v0.20.8
-	github.com/grokify/gocharts/v2 v2.17.0
-	github.com/grokify/mogo v0.62.7
+	github.com/grokify/goauth v0.20.11
+	github.com/grokify/gocharts/v2 v2.18.0
+	github.com/grokify/mogo v0.63.0
 	github.com/jessevdk/go-flags v1.5.0
 )
 
@@ -32,9 +32,9 @@ require (
 	github.com/xuri/excelize/v2 v2.8.0 // indirect
 	github.com/xuri/nfp v0.0.0-20230919160717-d98342af3f05 // indirect
 	golang.org/x/crypto v0.18.0 // indirect
-	golang.org/x/exp v0.0.0-20240112132812-db7319d0e0e3 // indirect
+	golang.org/x/exp v0.0.0-20240119083558-1b970713d09a // indirect
 	golang.org/x/net v0.20.0 // indirect
-	golang.org/x/oauth2 v0.15.0 // indirect
+	golang.org/x/oauth2 v0.16.0 // indirect
 	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	gonum.org/v1/gonum v0.14.0 // indirect
