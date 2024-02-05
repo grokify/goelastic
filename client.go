@@ -59,8 +59,8 @@ func (c *Client) IndexPatch(target string, body any) (*http.Response, error) {
 // DocumentRead reads a document. If `v` is a pointer, the resulting `_source` property will be unmarshaled into it.
 // The API is documented at: https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html and
 // https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/examples.html#retrieving_document .
-func (c *Client) DocumentRead(target, id string, v any) (*GetDocumentAPIResponse, *http.Response, error) {
-	apiResp := &GetDocumentAPIResponse{}
+func (c *Client) DocumentRead(target, id string, v any) (*DocumentReadAPIResponse, *http.Response, error) {
+	apiResp := &DocumentReadAPIResponse{}
 	if err := c.validateClientAndTarget(target); err != nil {
 		return nil, nil, err
 	} else if strings.TrimSpace(id) == "" {
@@ -81,8 +81,8 @@ func (c *Client) DocumentRead(target, id string, v any) (*GetDocumentAPIResponse
 	}
 }
 
-// GetDocumentAPIResponse represents an Elasticsearch document response.
-type GetDocumentAPIResponse struct {
+// DocumentReadAPIResponse represents an Elasticsearch document response.
+type DocumentReadAPIResponse struct {
 	Index  string          `json:"_index"`
 	ID     string          `json:"_id"`
 	Found  bool            `json:"found"`
