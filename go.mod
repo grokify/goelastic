@@ -4,8 +4,6 @@ go 1.22
 
 toolchain go1.22.1
 
-// toolchain go1.21.1
-
 require (
 	github.com/elastic/go-elasticsearch/v8 v8.12.1
 	github.com/grokify/goauth v0.20.12
