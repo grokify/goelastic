@@ -6,9 +6,9 @@ toolchain go1.22.1
 
 require (
 	github.com/elastic/go-elasticsearch/v8 v8.13.1
-	github.com/grokify/goauth v0.20.14
-	github.com/grokify/gocharts/v2 v2.18.5
-	github.com/grokify/mogo v0.63.8
+	github.com/grokify/goauth v0.20.15
+	github.com/grokify/gocharts/v2 v2.18.6
+	github.com/grokify/mogo v0.63.10
 	github.com/jessevdk/go-flags v1.5.0
 )
 
@@ -30,12 +30,12 @@ require (
 	github.com/xuri/efp v0.0.0-20240408161823-9ad904a10d6d // indirect
 	github.com/xuri/excelize/v2 v2.8.1 // indirect
 	github.com/xuri/nfp v0.0.0-20240318013403-ab9948c2c4a7 // indirect
-	go.opentelemetry.io/otel v1.25.0 // indirect
-	go.opentelemetry.io/otel/metric v1.25.0 // indirect
+	go.opentelemetry.io/otel v1.26.0 // indirect
+	go.opentelemetry.io/otel/metric v1.26.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.22.0 // indirect
-	go.opentelemetry.io/otel/trace v1.25.0 // indirect
+	go.opentelemetry.io/otel/trace v1.26.0 // indirect
 	golang.org/x/crypto v0.22.0 // indirect
-	golang.org/x/exp v0.0.0-20240409090435-93d18d7e34b8 // indirect
+	golang.org/x/exp v0.0.0-20240416160154-fe59bbe5cc7f // indirect
 	golang.org/x/net v0.24.0 // indirect
 	golang.org/x/oauth2 v0.19.0 // indirect
 	golang.org/x/sys v0.19.0 // indirect
