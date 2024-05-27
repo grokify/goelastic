@@ -8,7 +8,7 @@ require (
 	github.com/elastic/go-elasticsearch/v8 v8.13.1
 	github.com/grokify/goauth v0.20.16
 	github.com/grokify/gocharts/v2 v2.18.7
-	github.com/grokify/mogo v0.63.11
+	github.com/grokify/mogo v0.64.0
 	github.com/jessevdk/go-flags v1.5.0
 )
 
