@@ -6,15 +6,15 @@ toolchain go1.22.2
 
 require (
 	github.com/elastic/go-elasticsearch/v8 v8.13.1
-	github.com/grokify/goauth v0.20.16
-	github.com/grokify/gocharts/v2 v2.18.7
-	github.com/grokify/mogo v0.63.11
+	github.com/grokify/goauth v0.21.2
+	github.com/grokify/gocharts/v2 v2.19.1
+	github.com/grokify/mogo v0.64.1
 	github.com/jessevdk/go-flags v1.5.0
 )
 
 require (
 	github.com/elastic/elastic-transport-go/v8 v8.5.0 // indirect
-	github.com/go-logr/logr v1.4.1 // indirect
+	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/grokify/base36 v1.0.5 // indirect
@@ -30,12 +30,13 @@ require (
 	github.com/xuri/efp v0.0.0-20240408161823-9ad904a10d6d // indirect
 	github.com/xuri/excelize/v2 v2.8.1 // indirect
 	github.com/xuri/nfp v0.0.0-20240318013403-ab9948c2c4a7 // indirect
-	go.opentelemetry.io/otel v1.26.0 // indirect
-	go.opentelemetry.io/otel/metric v1.26.0 // indirect
+	go.opentelemetry.io/otel v1.27.0 // indirect
+	go.opentelemetry.io/otel/metric v1.27.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.22.0 // indirect
-	go.opentelemetry.io/otel/trace v1.26.0 // indirect
+	go.opentelemetry.io/otel/trace v1.27.0 // indirect
 	golang.org/x/crypto v0.23.0 // indirect
-	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
+	golang.org/x/exp v0.0.0-20240525044651-4c93da0ed11d // indirect
+	golang.org/x/image v0.16.0 // indirect
 	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/oauth2 v0.20.0 // indirect
 	golang.org/x/sys v0.20.0 // indirect
