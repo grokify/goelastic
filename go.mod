@@ -6,9 +6,9 @@ toolchain go1.22.2
 
 require (
 	github.com/elastic/go-elasticsearch/v8 v8.13.1
-	github.com/grokify/goauth v0.21.2
-	github.com/grokify/gocharts/v2 v2.19.1
-	github.com/grokify/mogo v0.64.2
+	github.com/grokify/goauth v0.21.3
+	github.com/grokify/gocharts/v2 v2.19.2
+	github.com/grokify/mogo v0.64.3
 	github.com/jessevdk/go-flags v1.5.0
 )
 
