@@ -5,7 +5,7 @@ go 1.22.0
 toolchain go1.22.2
 
 require (
-	github.com/elastic/go-elasticsearch/v8 v8.13.1
+	github.com/elastic/go-elasticsearch/v8 v8.14.0
 	github.com/grokify/goauth v0.21.2
 	github.com/grokify/gocharts/v2 v2.19.1
 	github.com/grokify/mogo v0.64.2
@@ -13,7 +13,7 @@ require (
 )
 
 require (
-	github.com/elastic/elastic-transport-go/v8 v8.5.0 // indirect
+	github.com/elastic/elastic-transport-go/v8 v8.6.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
