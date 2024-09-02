@@ -1,12 +1,9 @@
 module github.com/grokify/goelastic
 
 go 1.22.0
-
-toolchain go1.22.2
-
 require (
 	github.com/elastic/go-elasticsearch/v8 v8.15.0
-	github.com/grokify/goauth v0.21.10
+	github.com/grokify/goauth v0.22.0
 	github.com/grokify/gocharts/v2 v2.20.0
 	github.com/grokify/mogo v0.64.10
 	github.com/jessevdk/go-flags v1.6.1
@@ -29,10 +26,10 @@ require (
 	github.com/xuri/efp v0.0.0-20240408161823-9ad904a10d6d // indirect
 	github.com/xuri/excelize/v2 v2.8.1 // indirect
 	github.com/xuri/nfp v0.0.0-20240318013403-ab9948c2c4a7 // indirect
-	go.opentelemetry.io/otel v1.28.0 // indirect
-	go.opentelemetry.io/otel/metric v1.28.0 // indirect
+	go.opentelemetry.io/otel v1.29.0 // indirect
+	go.opentelemetry.io/otel/metric v1.29.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.22.0 // indirect
-	go.opentelemetry.io/otel/trace v1.28.0 // indirect
+	go.opentelemetry.io/otel/trace v1.29.0 // indirect
 	golang.org/x/crypto v0.26.0 // indirect
 	golang.org/x/exp v0.0.0-20240823005443-9b4947da3948 // indirect
 	golang.org/x/image v0.19.0 // indirect
