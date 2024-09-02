@@ -102,6 +102,7 @@ func (c *Client) DocumentReadSimple(target, id string) (*http.Response, error) {
 }
 
 // DocumentCreate crates a document with the document id `id`. If `id` is empty, a document id is created.`
+// Read more here: https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html
 func (c *Client) DocumentCreate(target, id string, body any) (*http.Response, error) {
 	if err := c.validateClientAndTarget(target); err != nil {
 		return nil, err
