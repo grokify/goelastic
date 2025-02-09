@@ -1,6 +1,7 @@
 # GoElastic: A Go Client Wrapper for Elasticsearch
 
 [![Build Status][build-status-svg]][build-status-url]
+[![Lint Status][lint-status-svg]][lint-status-url]
 [![Go Report Card][goreport-svg]][goreport-url]
 [![Docs][docs-godoc-svg]][docs-godoc-url]
 [![License][license-svg]][license-url]
@@ -24,7 +25,9 @@ So far the following example code has been created:
     1. [An Introduction to Elasticsearch Mapping](https://www.elastic.co/blog/found-elasticsearch-mapping-introduction)
 
  [build-status-svg]: https://github.com/grokify/goelastic/workflows/test/badge.svg
- [build-status-url]: https://github.com/grokify/goelastic/actions
+ [build-status-url]: https://github.com/grokify/goelastic/actions/workflows/test.yaml
+ [lint-status-svg]: https://github.com/grokify/goelastic/workflows/lint/badge.svg
+ [lint-status-url]: https://github.com/grokify/goelastic/actions/workflows/lint.yaml
  [goreport-svg]: https://goreportcard.com/badge/github.com/grokify/goelastic
  [goreport-url]: https://goreportcard.com/report/github.com/grokify/goelastic
  [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/grokify/goelastic
