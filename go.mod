@@ -4,9 +4,9 @@ go 1.23.2
 
 require (
 	github.com/elastic/go-elasticsearch/v8 v8.17.1
-	github.com/grokify/goauth v0.23.5
-	github.com/grokify/gocharts/v2 v2.22.0
-	github.com/grokify/mogo v0.67.9
+	github.com/grokify/goauth v0.23.6
+	github.com/grokify/gocharts/v2 v2.22.2
+	github.com/grokify/mogo v0.68.1
 	github.com/jessevdk/go-flags v1.6.1
 )
 
@@ -32,10 +32,10 @@ require (
 	go.opentelemetry.io/otel/metric v1.34.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.34.0 // indirect
 	go.opentelemetry.io/otel/trace v1.34.0 // indirect
-	golang.org/x/crypto v0.33.0 // indirect
-	golang.org/x/exp v0.0.0-20250207012021-f9890c6ad9f3 // indirect
+	golang.org/x/crypto v0.34.0 // indirect
+	golang.org/x/exp v0.0.0-20250218142911-aa4b98e5adaa // indirect
 	golang.org/x/image v0.24.0 // indirect
-	golang.org/x/net v0.34.0 // indirect
+	golang.org/x/net v0.35.0 // indirect
 	golang.org/x/oauth2 v0.26.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
