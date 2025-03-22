@@ -24,9 +24,9 @@ So far the following example code has been created:
 1. Mapping
     1. [An Introduction to Elasticsearch Mapping](https://www.elastic.co/blog/found-elasticsearch-mapping-introduction)
 
- [build-status-svg]: https://github.com/grokify/goelastic/workflows/test/badge.svg
- [build-status-url]: https://github.com/grokify/goelastic/actions/workflows/test.yaml
- [lint-status-svg]: https://github.com/grokify/goelastic/workflows/lint/badge.svg
+ [build-status-svg]: https://github.com/grokify/goelastic/actions/workflows/ci.yaml/badge.svg?branch=master
+ [build-status-url]: https://github.com/grokify/goelastic/actions/workflows/ci.yaml
+ [lint-status-svg]: https://github.com/grokify/goelastic/actions/workflows/lint.yaml/badge.svg?branch=master
  [lint-status-url]: https://github.com/grokify/goelastic/actions/workflows/lint.yaml
  [goreport-svg]: https://goreportcard.com/badge/github.com/grokify/goelastic
  [goreport-url]: https://goreportcard.com/report/github.com/grokify/goelastic
