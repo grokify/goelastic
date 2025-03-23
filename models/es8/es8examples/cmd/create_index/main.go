@@ -6,7 +6,7 @@ import (
 	"github.com/grokify/goauth/authutil"
 	"github.com/grokify/goelastic"
 	"github.com/grokify/goelastic/models/es8/es8examples"
-	"github.com/grokify/mogo/encoding/jsonutil"
+	"github.com/grokify/mogo/encoding/jsonutil/jsonraw"
 	"github.com/grokify/mogo/log/logutil"
 	"github.com/grokify/mogo/net/http/httpsimple"
 	flags "github.com/jessevdk/go-flags"
@@ -34,7 +34,7 @@ func main() {
 	resp, err := sclient.Do(*sreq)
 	logutil.FatalErr(err)
 
-	data, err := jsonutil.IndentReader(resp.Body, "", "  ")
+	data, err := jsonraw.Indent(resp.Body, "", "  ")
 	logutil.FatalErr(err)
 
 	fmt.Println(string(data))

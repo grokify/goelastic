@@ -4,9 +4,9 @@ go 1.23.2
 
 require (
 	github.com/elastic/go-elasticsearch/v8 v8.17.1
-	github.com/grokify/goauth v0.23.7
-	github.com/grokify/gocharts/v2 v2.22.4
-	github.com/grokify/mogo v0.68.2
+	github.com/grokify/goauth v0.23.8
+	github.com/grokify/gocharts/v2 v2.22.6
+	github.com/grokify/mogo v0.68.3
 	github.com/jessevdk/go-flags v1.6.1
 )
 

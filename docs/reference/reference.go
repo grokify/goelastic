@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/grokify/mogo/encoding/jsonutil"
+	"github.com/grokify/mogo/encoding/jsonutil/jsonraw"
 	"github.com/grokify/mogo/log/logutil"
 )
 
@@ -43,7 +43,7 @@ func ProcResponse(resp *http.Response, err error) {
 	if resp == nil {
 		return
 	}
-	body, err := jsonutil.IndentReader(resp.Body, "", "  ")
+	body, err := jsonraw.Indent(resp.Body, "", "  ")
 	logutil.FatalErr(err)
 	fmt.Printf("C_RES_BODY: %v\n", string(body))
 	fmt.Printf("C_RES_STATUS: %v\n", resp.StatusCode)
