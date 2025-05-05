@@ -5,8 +5,8 @@ go 1.23.2
 require (
 	github.com/elastic/go-elasticsearch/v8 v8.17.1
 	github.com/grokify/goauth v0.23.10
-	github.com/grokify/gocharts/v2 v2.23.2
-	github.com/grokify/mogo v0.68.6
+	github.com/grokify/gocharts/v2 v2.24.1
+	github.com/grokify/mogo v0.68.15
 	github.com/jessevdk/go-flags v1.6.1
 )
 
@@ -17,11 +17,14 @@ require (
 	github.com/grokify/base36 v1.0.5 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
+	github.com/olekukonko/tablewriter v0.0.5 // indirect
 	github.com/richardlehane/mscfb v1.0.4 // indirect
 	github.com/richardlehane/msoleps v1.0.4 // indirect
+	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/quicktemplate v1.8.0 // indirect
 	github.com/xuri/efp v0.0.0-20250227110027-3491fafc2b79 // indirect
