@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 
@@ -36,7 +37,7 @@ func main() {
 
 	fmtutil.MustPrintJSON(body)
 
-	resp, err := esClient.Do(httpsimple.Request{
+	resp, err := esClient.Do(context.Background(), httpsimple.Request{
 		Method:   http.MethodPut,
 		URL:      "twitter",
 		BodyType: httpsimple.BodyTypeJSON,

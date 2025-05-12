@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/grokify/goauth/authutil"
@@ -31,7 +32,7 @@ func main() {
 
 	sreq := es8examples.ExampleCreateIndexMappings()
 
-	resp, err := sclient.Do(*sreq)
+	resp, err := sclient.Do(context.Background(), *sreq)
 	logutil.FatalErr(err)
 
 	data, err := jsonraw.Indent(resp.Body, "", "  ")

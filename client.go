@@ -1,6 +1,7 @@
 package goelastic
 
 import (
+	"context"
 	"crypto/tls"
 	"encoding/json"
 	"errors"
@@ -29,11 +30,11 @@ type Client struct {
 }
 
 // IndexCreate creates an index. Documented at: https://www.elastic.co/guide/en/elasticsearch/reference/current/explicit-mapping.html .
-func (c *Client) IndexCreate(target string, body any) (*http.Response, error) {
+func (c *Client) IndexCreate(ctx context.Context, target string, body any) (*http.Response, error) {
 	if err := c.validateClientAndTarget(target); err != nil {
 		return nil, err
 	} else {
-		return c.SimpleClient.Do(httpsimple.Request{
+		return c.SimpleClient.Do(ctx, httpsimple.Request{
 			Method:   http.MethodPut,
 			URL:      target,
 			Body:     body,
@@ -43,11 +44,11 @@ func (c *Client) IndexCreate(target string, body any) (*http.Response, error) {
 }
 
 // IndexPatch patches an index. Documented at: https://www.elastic.co/guide/en/elasticsearch/reference/current/explicit-mapping.html#add-field-mapping .
-func (c *Client) IndexPatch(target string, body any) (*http.Response, error) {
+func (c *Client) IndexPatch(ctx context.Context, target string, body any) (*http.Response, error) {
 	if err := c.validateClientAndTarget(target); err != nil {
 		return nil, err
 	} else {
-		return c.SimpleClient.Do(httpsimple.Request{
+		return c.SimpleClient.Do(ctx, httpsimple.Request{
 			Method:   http.MethodPut,
 			URL:      urlutil.JoinAbsolute(target, SlugMapping),
 			Body:     body,
@@ -59,13 +60,13 @@ func (c *Client) IndexPatch(target string, body any) (*http.Response, error) {
 // DocumentRead reads a document. If `v` is a pointer, the resulting `_source` property will be unmarshaled into it.
 // The API is documented at: https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html and
 // https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/examples.html#retrieving_document .
-func (c *Client) DocumentRead(target, id string, v any) (*DocumentReadAPIResponse, *http.Response, error) {
+func (c *Client) DocumentRead(ctx context.Context, target, id string, v any) (*DocumentReadAPIResponse, *http.Response, error) {
 	apiResp := &DocumentReadAPIResponse{}
 	if err := c.validateClientAndTarget(target); err != nil {
 		return nil, nil, err
 	} else if strings.TrimSpace(id) == "" {
 		return nil, nil, ErrDocumentIDNotSet
-	} else if resp, err := c.SimpleClient.Do(httpsimple.Request{
+	} else if resp, err := c.SimpleClient.Do(ctx, httpsimple.Request{
 		Method: http.MethodGet,
 		URL:    urlutil.JoinAbsolute(target, SlugDoc, id),
 	}); err != nil {
@@ -90,11 +91,11 @@ type DocumentReadAPIResponse struct {
 }
 
 // DocumentRead reads a document. Documented at: https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html .
-func (c *Client) DocumentReadSimple(target, id string) (*http.Response, error) {
+func (c *Client) DocumentReadSimple(ctx context.Context, target, id string) (*http.Response, error) {
 	if err := c.validateClientAndTarget(target); err != nil {
 		return nil, err
 	} else {
-		return c.SimpleClient.Do(httpsimple.Request{
+		return c.SimpleClient.Do(ctx, httpsimple.Request{
 			Method: http.MethodGet,
 			URL:    urlutil.JoinAbsolute(target, SlugDoc, id),
 		})
@@ -103,11 +104,11 @@ func (c *Client) DocumentReadSimple(target, id string) (*http.Response, error) {
 
 // DocumentCreate crates a document with the document id `id`. If `id` is empty, a document id is created.`
 // Read more here: https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html
-func (c *Client) DocumentCreate(target, id string, body any) (*http.Response, error) {
+func (c *Client) DocumentCreate(ctx context.Context, target, id string, body any) (*http.Response, error) {
 	if err := c.validateClientAndTarget(target); err != nil {
 		return nil, err
 	} else {
-		return c.SimpleClient.Do(httpsimple.Request{
+		return c.SimpleClient.Do(ctx, httpsimple.Request{
 			Method:   http.MethodPost,
 			URL:      urlutil.JoinAbsolute(target, SlugCreate, id),
 			Body:     body,

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"strings"
@@ -31,8 +32,10 @@ func main() {
 		Message:  "trying out Elasticsearch",
 		HashTags: []string{"elasticsearch", "wow"}}
 
+	ctx := context.Background()
+
 	// Create Doc
-	resp, err := esClient.Do(httpsimple.Request{
+	resp, err := esClient.Do(ctx, httpsimple.Request{
 		Method:   http.MethodPost,
 		URL:      strings.Join([]string{"twitter/tweet", id, goelastic.SlugCreate}, "/"),
 		BodyType: httpsimple.BodyTypeJSON,
@@ -40,7 +43,7 @@ func main() {
 	reference.ProcResponse(resp, err)
 
 	// Get/Check Doc
-	resp, err = esClient.Do(httpsimple.Request{
+	resp, err = esClient.Do(ctx, httpsimple.Request{
 		Method: http.MethodGet,
 		URL:    strings.Join([]string{"twitter/tweet", id}, "/")})
 	reference.ProcResponse(resp, err)
@@ -48,7 +51,7 @@ func main() {
 	// update Doc
 	tweet.Message = "trying out Elasticsearch again"
 
-	resp, err = esClient.Do(httpsimple.Request{
+	resp, err = esClient.Do(ctx, httpsimple.Request{
 		Method:   http.MethodPost,
 		URL:      strings.Join([]string{"twitter/tweet", id, goelastic.SlugUpdate}, "/"),
 		BodyType: httpsimple.BodyTypeJSON,
@@ -56,7 +59,7 @@ func main() {
 	reference.ProcResponse(resp, err)
 
 	// Get/Check Doc
-	resp, err = esClient.Do(httpsimple.Request{
+	resp, err = esClient.Do(ctx, httpsimple.Request{
 		Method: http.MethodGet,
 		URL:    strings.Join([]string{"twitter/tweet", id}, "/")})
 	reference.ProcResponse(resp, err)

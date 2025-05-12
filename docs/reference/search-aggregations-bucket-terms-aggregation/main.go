@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"strings"
@@ -40,7 +41,7 @@ func main() {
 
 	fmtutil.MustPrintJSON(body)
 
-	resp, err := esClient.Do(httpsimple.Request{
+	resp, err := esClient.Do(context.Background(), httpsimple.Request{
 		Method:   http.MethodPost,
 		URL:      strings.Join([]string{"twitter/tweet", goelastic.SlugSearch}, "/"),
 		Body:     body,
