@@ -3,7 +3,7 @@ module github.com/grokify/goelastic
 go 1.23.2
 
 require (
-	github.com/elastic/go-elasticsearch/v8 v8.18.1
+	github.com/elastic/go-elasticsearch/v8 v8.19.0
 	github.com/grokify/goauth v0.23.17
 	github.com/grokify/gocharts/v2 v2.24.15
 	github.com/grokify/mogo v0.70.13
